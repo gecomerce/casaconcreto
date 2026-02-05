@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+    --bg: #ffffff;
+    --container-color: #793CBD;
+    --color-text: #fff;
+    --font-size: 4vw;
+
+    /* -------------------------------- */
+
+    --label-size-mobile: 4vw;
+    --font-size-h3: 5vw;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+#title {
+    margin-top: 5vw;
+    margin-bottom: 2vw;
+    color: var(--container-color);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    align-items: center;
+    border-radius: 0.5vw;
+    padding: 1vw;
+    background-color: var(--container-color);
+    color: var(--color-text);
+
+    input {
+        width: 90%;
+        outline: none;
+        font-size: 1vw;
+        padding: 0.5vw;
+        border: none;
+        border-radius: 0.2vw;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+#btn_enviar {
+    background-color: var(--container-color);
+    color: var(--color-text);
+    margin: 2vw;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.5vw;
+    padding: 0.5vw;
+    cursor: pointer;
+    margin-bottom: 10vh;
+    width: 30%;
+}
+
+#pdf_content {
+    width: 30%;
+    /* width: 95%; */
+    min-height: 297mm;
+    padding: 2;
+    /* background-color: white; */
+    color: black;
+    box-sizing: border-box;
+}
+
+.card {
+    page-break-inside: avoid;
+
+    #metragem_da_obra{
+        width: 90%;
+        padding: 3vw;
+        font-size: 18pt;
+        border: none;
+        border-radius: 1vw;
+    }
+
+    #vgv_resultado{
+        font-size: 5vw;
+    }
+}
+
+
+/* --------------------------------------------------------- */
+
+@media screen and (max-width: 968px),
+screen and (orientation: portrait) {
+
+    #title {
+        font-size: 6vw;
+        margin-bottom: 8vw;
+    }
+
+    #pdf_content {
+        width: 95%;
+        padding: 0;
+    }
+
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7vw;
+
+        h2 {
+            font-size: var(--font-size-h3);
+            text-align: center;
+        }
+    }
+
+    .card {
+        width: 100%;
+        gap: 3vw;
+        padding: 5vw;
+        border-radius: 2vw;
+
+        input {
+            font-size: 4vw;
+            border-radius: 1vw;
+            padding: 2vw;
+        }
+
+        h3 {
+            font-size: 4vw;
+        }
+
+        label {
+            font-size: var(--label-size-mobile);
+            text-align: center;
+        }
+    }
+
+    #btn_enviar {
+        width: 95%;
+        font-size: 6vw;
+        border-radius: 2vw;
+        padding: 2vw;
+        margin-bottom: 40vw;
+    }
+
+}

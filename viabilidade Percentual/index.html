@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viablidade</title>
+    <link rel="shortcut icon" href="/assets/images/logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="salvar_pdf.js"></script>
+</head>
+
+<body>
+
+    <div id="loading">
+
+        <div class="spinner" id="spinner"></div>
+
+    </div>
+
+    <h1 id="title">CÁLCULO DE VIABILIDADE</h1>
+
+    <div id="pdf_content">
+
+        <form id="loginForm" class="form">
+
+            <div class="card">
+
+                <h2>Custos do Terreno:</h2>
+
+                <label for="valor_aquisicao">Valor de Aquisição</label>
+                <input type="text" id="valor_aquisicao" placeholder="R$ 0,00">
+
+                <!-- <label>ITBI 2%</label> -->
+                <h3 id="itbi_resultado">Resultado ITBI (2%):</h3>
+
+                <!-- <label>REGISTRO (RGI) 0,75%</label> -->
+                <h3 id="rgi">Resultado RGI (0,75%): </h3>
+
+                <!-- <label>Certidões, Cópias e autentificações</label> -->
+                <h3 id="certidao_etc">Certidão (13%): </h3>
+
+                <h2 id="custo_total_terreno">Total: R$ 0,00</h2>
+
+            </div>
+
+            <!-- ---------------------------------------------->
+
+            <div class="card">
+
+                <h2>Custos Relacionados a Obra:</h2>
+
+                <label for="qtd_unidades">Quantidade de Unidades</label>
+                <input type="number" id="qtd_unidades" min="1" value="1">
+
+                <label for="metragem_da_obra">Área de cada unidade (m²)</label>
+
+                <select name="" id="metragem_da_obra">
+
+                    <option value="80">80 M²</option>
+                    <option value="100">100m²</option>
+                    <option value="150">150m²</option>
+
+                </select>
+
+                <label for="custo_por_metro">Cuto por metro quadrado: R$ 1.450,00</label>
+
+                <h3 id="lucro_construtor">Lucro do Construtor 10%: </h3>
+
+                <h2 id="custo_total_obra">R$ 0,00</h2>
+
+            </div>
+
+            <!-- ---------------------------------------------->
+
+            <div class="card">
+
+
+                <h2>Custo Operacional da Obra</h2>
+
+                <label for="valor_agua_energia">Luz e água: R$ 1.000,00</label>
+                <!-- <input type="text" id="valor_agua_energia" placeholder="R$ 0,00"> -->
+
+                <label for="valor_iptu">IPTU</label>
+                <input type="text" id="valor_iptu" readonly>
+
+                <h3 id="habite_se">HABITE-SE + Averbação + ISS + INSS (despachante): R$0,00</h3>
+
+                <h3 id="resultado_despesas">Despesas Do Imóvel:</h3>
+
+
+            </div>
+
+            <!------------------------------------------------>
+
+            <div class="card">
+                <h2>VGV (Valor Geral de Venda)</h2>
+                <h1 id="vgv_resultado">R$ 0,00</h1>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <h2>Corretagem</h2>
+
+                <!-- <label>Corretor 10%: </label> -->
+                <h3 id="corretor">Corretor (10%) R$ 0,00</h3>
+
+                <label>Propaganda Própria 1%: </label>
+                <h3 id="propaganda">R$ 0,00</h3>
+
+                <h2 id="total_corretagem">Total Corretagem: R$0,00</h2>
+
+            </div>
+
+            <div class="card">
+
+                <h2>TOTAL OPERACIONAL</h2>
+
+                <label id="to_terreno"></label>
+                <label id="to_itbi"></label>
+                <label id="to_rgi"></label>
+                <label id="to_certidao"></label>
+
+                <label id="to_custo_obra"></label>
+                <label id="to_lucro_construtor"></label>
+
+                <label id="to_iptu"></label>
+                <label id="to_habite"></label>
+
+
+                <label id="to_agua_luz"></label>
+
+
+                <hr>
+
+                <h2 id="resultado_operacional">R$ 0,00</h2>
+
+            </div>
+
+
+            <!-- ------------------------------------------------------------------>
+
+            <div class="card">
+
+                <h2>VALOR FINAL A RECEBER</h2>
+
+                <!-- <label>Total quitação:</label> -->
+                <h3 id="valor_quitacao"></h3>
+
+                <!-- <label>Imposto de Renda:</label> -->
+                <h3 id="imposto_de_renda"></h3>
+
+                <!-- <label>Corretagem:</label> -->
+                <h3 id="resultado_corretagem"></h3>
+
+                <h3 id="lucro_bruto">Lucro Bruto: R$ 0,00</h3>
+
+                <h2 id="lucro_liquido">Lucro Liquido: R$ 0,00</h2>
+
+                <h2 id="percentual_lucro">Percentual: </h2>
+
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <button type="button" id="btn_enviar">Salvar</button>
+
+</body>
+
+
+</html>

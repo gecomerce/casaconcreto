@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ================= CONSTANTES ================= */
@@ -10,14 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const CORRETOR = 0.10;
     const PROPAGANDA = 0.01;
     const IR = 0.15;
-
     const AGUA_ENERGIA_FIXO = 1000;
-    const CUSTO_METRO_FIXO = 1450;
-
-    // fator matemático que garante 20% de lucro líquido
     const FATOR_VGV = 1.574;
 
-    /* ================= HELPERS ================= */
     const el = id => document.getElementById(id);
 
     const formatarMoeda = v =>
@@ -26,6 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const limparValor = v =>
         Number(String(v).replace(/\D/g, '')) / 100 || 0;
 
+    /* ================= DROPDOWN ================= */
+    function getCustoMetro() {
+        return Number(el('custo_por_metro').value) || 0;
+    }
+
+    /* ================= BASE OBRA ================= */
+    function custoObraBase() {
+        const unidades = Number(el('qtd_unidades').value) || 0;
+        const area = Number(el('metragem_da_obra').value) || 0;
+        return unidades * area * getCustoMetro();
+    }
+
+    /* ================= INPUTS ================= */
     function aplicarMascaraMoeda(input) {
         if (!input) return;
         input.value = formatarMoeda(0);
@@ -36,15 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ================= INPUTS ================= */
     aplicarMascaraMoeda(el('valor_aquisicao'));
-
-    /* ================= BASE OBRA ================= */
-    function custoObraBase() {
-        const unidades = Number(el('qtd_unidades').value) || 0;
-        const area = Number(el('metragem_da_obra').value) || 0;
-        return unidades * area * CUSTO_METRO_FIXO;
-    }
 
     /* ================= CÁLCULO PRINCIPAL ================= */
     function calcularTudo() {
@@ -85,10 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         el('resultado_operacional').textContent = formatarMoeda(totalOperacional);
 
-        /* ---------- VGV AUTOMÁTICO ---------- */
         const vgv = totalOperacional * FATOR_VGV;
         el('vgv_resultado').textContent = formatarMoeda(vgv);
-
 
         const corretagem = vgv * CORRETOR;
         const propaganda = vgv * PROPAGANDA;
@@ -103,23 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const lucroLiquido = lucroBruto - imposto - totalCorretagem;
         const percentual = (lucroLiquido / vgv) * 100;
 
-        el('valor_quitacao').textContent =
-            `Total Operacional ${formatarMoeda(totalOperacional)}`;
-
-        el('imposto_de_renda').textContent =
-            `Imposto de Renda: ${formatarMoeda(imposto)}`;
-
-        el('resultado_corretagem').textContent =
-            `Total Corretagem: ${formatarMoeda(totalCorretagem)}`;
-
-        el('lucro_bruto').textContent =
-            `Lucro Bruto: ${formatarMoeda(lucroBruto)}`;
-
-        el('lucro_liquido').textContent =
-            `Lucro Liquido: ${formatarMoeda(lucroLiquido)}`;
-
-        el('percentual_lucro').textContent =
-            `Percentual: ${percentual.toFixed(2)}%`;
+        el('lucro_bruto').textContent = `Lucro Bruto: ${formatarMoeda(lucroBruto)}`;
+        el('lucro_liquido').textContent = `Lucro Liquido: ${formatarMoeda(lucroLiquido)}`;
+        el('percentual_lucro').textContent = `Percentual: ${percentual.toFixed(2)}%`;
 
         /* ---------- DETALHE ---------- */
         el('to_terreno').textContent = `Terreno: ${formatarMoeda(terreno)}`;
@@ -133,9 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
         el('to_agua_luz').textContent = `Água e Luz: ${formatarMoeda(AGUA_ENERGIA_FIXO)}`;
     }
 
-    ['qtd_unidades', 'metragem_da_obra'].forEach(id =>
+    ['qtd_unidades', 'metragem_da_obra', 'custo_por_metro'].forEach(id =>
         el(id).addEventListener('input', calcularTudo)
     );
 
     calcularTudo();
 });
+

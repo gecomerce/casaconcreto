@@ -103,11 +103,12 @@ input[type="number"]::-webkit-outer-spin-button {
 .card {
     page-break-inside: avoid;
 
-    #metragem_da_obra {
+    #metragem_da_obra, #custo_por_metro {
         width: 90%;
-        padding: 0.5vw;
+        padding: 1vw;
         font-size: 12pt;
         border: none;
+        margin-bottom: 3vw;
         border-radius: 0.5vw;
     }
 

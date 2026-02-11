@@ -68,6 +68,7 @@ body {
     background-color: var(--cor-container);
     padding-top: 60px;
     transition: 0.3s;
+    overflow-y: scroll;
 }
 
 .sidebar img {

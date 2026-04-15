@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ================= DROPDOWN ================= */
     function getCustoMetro() {
-        return Number(el('custo_por_metro').value) || 0;
+        return limparValor(el('custo_por_metro').value);
     }
 
     /* ================= BASE OBRA ================= */
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     aplicarMascaraMoeda(el('valor_aquisicao'));
+    aplicarMascaraMoeda(el('custo_por_metro'));
 
     /* ================= CÁLCULO PRINCIPAL ================= */
     function calcularTudo() {

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termo de Recebimento EPI</title>
+    <link rel="shortcut icon" href="/assets/images/logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="salvar_pdf.js"></script>
+</head>
+
+<body>
+
+    <div id="loading">
+        <div class="spinner" id="spinner"></div>
+    </div>
+
+    <h1 id="title">TERMO DE RECEBIMENTO DE EPI</h1>
+
+    <div id="form_container">
+        <form id="epiform" class="form">
+
+            <div class="card">
+                <h2>Informações do Colaborador:</h2>
+
+                <label for="nome_colaborador">Nome do Colaborador</label>
+                <input type="text" id="nome_colaborador" placeholder="Digite o nome completo" required>
+
+                <label for="cpf_colaborador">CPF</label>
+                <input type="text" id="cpf_colaborador" placeholder="000.000.000-00" required>
+
+                <label for="empresa_nome">Nome da Empresa</label>
+                <input type="text" id="empresa_nome" placeholder="Digite o nome da empresa" required>
+
+                <label for="empresa_cnpj">CNPJ da Empresa</label>
+                <input type="text" id="empresa_cnpj" placeholder="00.000.000/0000-00" required>
+            </div>
+
+            <div class="card">
+                <h2>Equipamentos de Proteção Individual (EPIs):</h2>
+
+                <label for="quantidade_epis">Quantidade de EPIs:</label>
+                <select id="quantidade_epis" required>
+                    <option value="">Selecione a quantidade</option>
+                    <option value="1">1 EPI</option>
+                    <option value="2">2 EPIs</option>
+                    <option value="3">3 EPIs</option>
+                </select>
+
+                <div id="epis_container"></div>
+
+                
+            </div>
+
+            <div class="card">
+                <h2>Assinatura e Data:</h2>
+
+                <label for="data_recebimento">Data de Recebimento</label>
+                <input type="date" id="data_recebimento" required>
+
+                <label for="responsavel_empresa">Nome do Responsável pela Empresa</label>
+                <input type="text" id="responsavel_empresa" placeholder="Digite o nome do responsável" required>
+            </div>
+
+        </form>
+    </div>
+
+    <div id="pdf_content">
+        <div class="pdf-header">
+            <h1>TERMO DE RECEBIMENTO E RESPONSABILIDADE DE ENTREGA DE EQUIPAMENTO DE PROTEÇÃO INDIVIDUAL – EPI</h1>
+        </div>
+
+        <div class="pdf-body">
+            <p>Eu, <span id="pdf_nome_colaborador" class="yellow-field">_____________________</span>, portador (a) do CPF nº <span id="pdf_cpf_colaborador" class="yellow-field">________________</span>, DECLARO que recebi gratuitamente e em perfeito estado de funcionamento, da empresa: <span id="pdf_empresa_nome" class="yellow-field">_________________________</span> denominação social do empregador, inscrita no CNPJ sob o nº <span id="pdf_empresa_cnpj" class="yellow-field">__________________</span>, os Equipamentos de Proteção Individual – EPIs, abaixo discriminados, bem como fui orientado quanto ao uso e conservação, me comprometendo a usá-los unicamente para os fins a que se destinam e informar imediatamente quando desgastados, danificados, extraviados ou necessitarem de higienização específica por parte do empregador.</p>
+
+            <h3>Relação de EPIs recebidos:</h3>
+            <ul>
+                <li>* <span id="pdf_epi1" class="yellow-field">_________________________________</span></li>
+                <li>* <span id="pdf_epi2" class="yellow-field">_________________________________</span></li>
+                <li>* <span id="pdf_epi3" class="yellow-field">_________________________________</span></li>
+            </ul>
+
+            <h3>Declaro, ainda que:</h3>
+            <ul>
+                <li>Fui devidamente orientado (a) quanto ao uso correto, guarda e conservação dos EPIs recebidos;</li>
+                <li>Comprometo-me a utilizá-los de forma adequada durante toda a jornada de trabalho, conforme as normas de segurança;</li>
+                <li>Estou ciente de que a não utilização dos EPIs pode acarretar riscos à minha saúde e segurança, bem como medidas disciplinares conforme a legislação vigente;</li>
+                <li>Comprometo-me a comunicar imediatamente à empresa qualquer dano, extravio ou necessidade de substituição dos equipamentos;</li>
+                <li>Por ser verdade, firmo a presente declaração.</li>
+            </ul>
+
+            <p>Por ser verdade, firmo a presente declaração.</p>
+
+            <div class="signature-section">
+                <p><strong>COLABORADOR:</strong> <span id="pdf_nome_colaborador_final" class="yellow-field">_______________________</span></p>
+
+                <p><strong>RESPONSÁVEL PELA EMPRESA:</strong> <span id="pdf_responsavel_empresa_final" class="yellow-field">_______________________</span></p>
+
+                <p><strong>Data:</strong> <span id="pdf_data_final" class="date-field">_______________</span></p>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" id="btn_enviar">Gerar Termo</button>
+
+</body>
+
+</html>

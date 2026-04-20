@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --bg: #ffffff;
+    --container-color: #793CBD;
+    --color-text: #fff;
+    --font-size: 4vw;
+    --label-size-mobile: 4vw;
+    --font-size-h3: 5vw;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+}
+
+#title {
+    margin-top: 5vw;
+    margin-bottom: 2vw;
+    color: var(--container-color);
+    text-align: center;
+}
+
+#form_container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    align-items: center;
+    border-radius: 0.5vw;
+    padding: 2vw;
+    background-color: var(--container-color);
+    color: var(--color-text);
+}
+
+.card h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1vw;
+    font-size: 1.3vw;
+}
+
+.card label {
+    width: 90%;
+    text-align: left;
+    font-size: 1vw;
+    font-weight: 500;
+}
+
+.card input,
+.card textarea,
+.card select {
+    width: 90%;
+    outline: none;
+    font-size: 1vw;
+    padding: 0.7vw;
+    border: none;
+    border-radius: 0.2vw;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card select {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.card textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#epis_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    align-items: center;
+}
+
+#btn_enviar {
+    background-color: var(--container-color);
+    color: var(--color-text);
+    margin: 2vw;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.5vw;
+    padding: 1vw 2vw;
+    cursor: pointer;
+    margin-bottom: 10vh;
+    width: 200px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#btn_enviar:hover {
+    background-color: #6a2ea3;
+}
+
+/* Estilos para PDF */
+#pdf_content {
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    display: none;
+}
+
+.pdf-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid black;
+    padding-bottom: 15px;
+}
+
+.pdf-header h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.pdf-body {
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.pdf-body p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.pdf-body h3 {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.pdf-body ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.pdf-body li {
+    margin-bottom: 8px;
+}
+
+.yellow-field {
+    /* background-color: #ffff00; */
+    padding: 2px 4px;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.signature-section {
+    display: block;
+    margin-top: 50px;
+    padding-top: 30px;
+    text-align: left;
+}
+
+.signature-section p {
+    margin-bottom: 18px;
+    font-size: 12px;
+}
+
+.signature-section strong {
+    display: inline-block;
+    width: 220px;
+    font-weight: 700;
+}
+
+.signature-section .yellow-field {
+    display: inline-block;
+    min-width: 300px;
+    border-bottom: 1px solid #000;
+    padding-left: 6px;
+    font-weight: 700;
+}
+
+.signature-section .date-field {
+    display: inline-block;
+    min-width: 0;
+    border-bottom: none;
+    padding-left: 6px;
+    font-weight: 700;
+}
+
+@media print {
+    body {
+        padding: 0;
+    }
+
+    #title,
+    #form_container,
+    #btn_enviar,
+    .spinner {
+        display: none;
+    }
+
+    #pdf_content {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+
+
+.card {
+    page-break-inside: avoid;
+
+    #metragem_da_obra, #custo_por_metro {
+        width: 90%;
+        padding: 1vw;
+        font-size: 12pt;
+        border: none;
+        margin-bottom: 3vw;
+        border-radius: 0.5vw;
+    }
+
+    #vgv_resultado {
+        font-size: 2vw;
+    }
+}
+
+
+/* --------------------------------------------------------- */
+
+@media screen and (max-width: 968px),
+screen and (orientation: portrait) {
+
+    #title {
+        font-size: 6vw;
+        margin-bottom: 8vw;
+    }
+
+    #pdf_content {
+        width: 95%;
+        padding: 0;
+    }
+
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7vw;
+
+        h2 {
+            font-size: var(--font-size-h3);
+            text-align: center;
+        }
+    }
+
+    .card {
+        width: 100%;
+        gap: 3vw;
+        padding: 5vw;
+        border-radius: 2vw;
+
+        input {
+
+            width: 90%;
+            padding: 1vw;
+            font-size: 5vw;
+            border: none;
+            border-radius: 1vw;
+
+            #metragem_da_obra {
+                width: 90%;
+                padding: 5vw;
+                font-size: 5vw;
+                border: none;
+                border-radius: 1vw;
+            }
+        }
+
+        h3 {
+            font-size: 4vw;
+        }
+
+        label {
+            font-size: var(--label-size-mobile);
+            text-align: center;
+        }
+
+    }
+
+    #quantidade_epis{
+        font-size: large;
+    }
+
+    #btn_enviar {
+        width: 95%;
+        font-size: 6vw;
+        border-radius: 2vw;
+        padding: 2vw;
+        margin-bottom: 40vw;
+    }
+
+}

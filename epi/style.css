@@ -260,6 +260,10 @@ screen and (orientation: portrait) {
         margin-bottom: 8vw;
     }
 
+    #form_container{
+       max-width: 100%;
+    }
+
     #pdf_content {
         width: 95%;
         padding: 0;
@@ -317,7 +321,7 @@ screen and (orientation: portrait) {
     }
 
     #btn_enviar {
-        width: 95%;
+        width: 100%;
         font-size: 6vw;
         border-radius: 2vw;
         padding: 2vw;

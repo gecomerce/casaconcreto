@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setText('pdf_responsavel_empresa', responsavel);
 
         // Preencher campos finais (assinaturas) - somente se presentes
-        setText('pdf_nome_colaborador_final', nome);
         setText('pdf_responsavel_empresa_final', responsavel);
         setText('pdf_data_final', data);
 

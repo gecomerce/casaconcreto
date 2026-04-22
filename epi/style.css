@@ -235,7 +235,8 @@ body {
 .card {
     page-break-inside: avoid;
 
-    #metragem_da_obra, #custo_por_metro {
+    #metragem_da_obra,
+    #custo_por_metro {
         width: 90%;
         padding: 1vw;
         font-size: 12pt;
@@ -260,8 +261,8 @@ screen and (orientation: portrait) {
         margin-bottom: 8vw;
     }
 
-    #form_container{
-       max-width: 100%;
+    #form_container {
+        max-width: 100%;
     }
 
     #pdf_content {
@@ -316,8 +317,17 @@ screen and (orientation: portrait) {
 
     }
 
-    #quantidade_epis{
-        font-size: large;
+    #quantidade_epis {
+        font-size: 5vw;
+        border-radius: 0.5vw;
+    }
+
+    #epis_container input, label{
+        width: 100%;
+        padding: 1vw;
+        font-size: 5vw !important;
+        border: none;
+        border-radius: 1vw;
     }
 
     #btn_enviar {
@@ -327,5 +337,6 @@ screen and (orientation: portrait) {
         padding: 2vw;
         margin-bottom: 40vw;
     }
+
 
 }

@@ -128,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setText('pdf_cpf_colaborador', cpf);
         setText('pdf_empresa_nome', empresa);
         setText('pdf_empresa_cnpj', cnpj);
+        // Data inline após "EPIs abaixo discriminados"
+        setText('pdf_data_inline', data);
         setText('pdf_data_recebimento', data);
         setText('pdf_responsavel_empresa', responsavel);
 
@@ -136,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setText('pdf_data_final', data);
 
         // Preencher EPIs dinamicamente (proteção contra elementos ausentes)
-        for (let i = 1; i <= 3; i++) {
+        for (let i = 1; i <= 6; i++) {
             const pdfEpiElement = el(`pdf_epi${i}`);
             const inputEpi = el(`epi${i}`);
             if (!pdfEpiElement) continue;

@@ -14,7 +14,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------
 
     const formatarData = (data) => {
-        const date = new Date(data);
+        if (!data) return '';
+
+        // Se o input for do tipo date, o valor vem como "YYYY-MM-DD".
+        // `new Date('YYYY-MM-DD')` é tratado como UTC em alguns navegadores,
+        // o que provoca deslocamento de -1 dia em fusos negativos.
+        const isoMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(data);
+        let date;
+        if (isoMatch) {
+            const y = parseInt(isoMatch[1], 10);
+            const m = parseInt(isoMatch[2], 10) - 1;
+            const d = parseInt(isoMatch[3], 10);
+            date = new Date(y, m, d); // cria data no fuso local
+        } else {
+            date = new Date(data);
+        }
+
         return date.toLocaleDateString('pt-BR');
     };
 

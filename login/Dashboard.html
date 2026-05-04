@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>NFE AGRO</title>
+</head>
+
+<style>
+    body{
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    #iframe {
+        display: block;
+        height:calc(93% + 70px);
+    }
+
+    #iframe2 {
+        display: none;
+    }
+
+
+    @media (max-width: 768px) {
+
+
+        #iframe {
+            display: none;
+        }
+
+
+
+    }
+</style>
+
+<body>
+
+    <iframe id="iframe"
+        src="https://app.powerbi.com/view?r=eyJrIjoiYWRjMTE0MDgtNTlkOS00NTU1LWI1MGEtYWE2NjkyODQxZTdlIiwidCI6IjE4Njc3OGFjLWJjNjMtNGE0My1iMmVlLThiMTk0MWVjYTRhOSJ9"></iframe>
+
+    
+</body>
+
+<script>
+    if (localStorage.getItem("logon") !== "1") {
+        alert("Acesso não autorizado! Você será redirecionado para a tela de login.");
+        window.location.href = "index.html";
+    }
+</script>
+
+
+</html>

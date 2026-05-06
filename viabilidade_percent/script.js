@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const IPTU = 0.007;
     const HABITE_SE = 0.04;
     const CORRETOR = 0.10;
-    const PROPAGANDA = 0.01;
+    const PROPAGANDA = 0.02;
     const IR = 0.15;
     const AGUA_ENERGIA_FIXO = 1000;
     const FATOR_VGV = 1.574;
@@ -87,8 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         el('resultado_operacional').textContent = formatarMoeda(totalOperacional);
 
-        const vgv = totalOperacional * FATOR_VGV;
-        el('vgv_resultado').textContent = formatarMoeda(vgv);
+        // Calcula VGV e assegura lucro líquido mínimo de 20%
+        const totalCorretagemRate = CORRETOR + PROPAGANDA;
+        const minProfitRate = 0.20; // 20%
+
+        // VGV inicialmente estimado
+        let vgv = totalOperacional * FATOR_VGV;
+        let ajustadoParaMinimo = false;
+
+
+        const denom = (1 - IR - totalCorretagemRate - minProfitRate);
+        if (denom > 0) {
+            const requiredVgv = ((1 - IR) * totalOperacional) / denom;
+            if (vgv < requiredVgv) {
+                vgv = requiredVgv;
+                ajustadoParaMinimo = true;
+            }
+        }
+
+        el('vgv_resultado').textContent = formatarMoeda(vgv) + (ajustadoParaMinimo ? '' : '');
 
         const corretagem = vgv * CORRETOR;
         const propaganda = vgv * PROPAGANDA;
@@ -101,11 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const lucroBruto = vgv - totalOperacional;
         const imposto = lucroBruto > 0 ? lucroBruto * IR : 0;
         const lucroLiquido = lucroBruto - imposto - totalCorretagem;
-        const percentual = (lucroLiquido / vgv) * 100;
+        const percentual = vgv > 0 ? (lucroLiquido / vgv) * 100 : 0;
 
         el('lucro_bruto').textContent = `Lucro Bruto: ${formatarMoeda(lucroBruto)}`;
         el('lucro_liquido').textContent = `Lucro Liquido: ${formatarMoeda(lucroLiquido)}`;
-        el('percentual_lucro').textContent = `Percentual: ${percentual.toFixed(2)}%`;
+        el('percentual_lucro').textContent = `Percentual: ${percentual.toFixed(2)}%` + (ajustadoParaMinimo ? '' : '');
 
         /* ---------- DETALHE ---------- */
         el('to_terreno').textContent = `Terreno: ${formatarMoeda(terreno)}`;

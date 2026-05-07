@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------
-    // GERAR PDF
+    // GERAR DOCX (substitui geração de PDF)
     // -----------------------------
 
     const btnPDF = el('btn_enviar');
@@ -176,79 +176,53 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPDF.addEventListener('click', async () => {
             preencherPDF();
 
-            const elementoParaPDF = el('pdf_content');
-            const displayOriginal = elementoParaPDF.style.display;
+            const elementoParaDOCX = el('pdf_content');
+            const displayOriginal = elementoParaDOCX.style.display;
 
-            elementoParaPDF.style.display = 'block';
+            elementoParaDOCX.style.display = 'block';
             btnPDF.disabled = true;
 
-            const opcoes = {
-                margin: 10,
-                filename: 'termo_recebimento_epi.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    scrollY: 0,
-                    windowHeight: elementoParaPDF.scrollHeight
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
-                }
-            };
+            const filename = 'termo_recebimento_epi.docx';
+
+            const loadScript = (src) => new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.async = true;
+                s.onload = () => resolve();
+                s.onerror = () => reject(new Error('Falha ao carregar ' + src));
+                document.head.appendChild(s);
+            });
 
             try {
-                if (typeof html2pdf === 'undefined') {
-                    console.warn('html2pdf não encontrada; tentando carregar dinamicamente...');
-
-                    const loadScript = (src) => new Promise((resolve, reject) => {
-                        const s = document.createElement('script');
-                        s.src = src;
-                        s.async = true;
-                        s.onload = () => resolve();
-                        s.onerror = () => reject(new Error('Falha ao carregar ' + src));
-                        document.head.appendChild(s);
-                    });
-
+                if (!(window.htmlDocx && typeof window.htmlDocx.asBlob === 'function')) {
                     try {
-                        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
-                        console.log('html2pdf carregado dinamicamente.');
+                        await loadScript('https://cdn.jsdelivr.net/npm/html-docx-js@0.4.1/dist/html-docx.js');
                     } catch (e) {
-                        console.warn('Não foi possível carregar html2pdf dinamicamente:', e);
-                        // Tentativa de fallback: html2canvas + jsPDF
-                        try {
-                            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-                            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
-
-                            const canvas = await html2canvas(elementoParaPDF, { scale: 2, useCORS: true });
-                            const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                            const jsPDFCtor = window.jspdf && window.jspdf.jsPDF ? window.jspdf.jsPDF : null;
-                            if (!jsPDFCtor) throw new Error('jsPDF não disponível após carregamento.');
-
-                            const pdf = new jsPDFCtor(opcoes.jsPDF);
-                            const imgProps = pdf.getImageProperties(imgData);
-                            const pdfWidth = pdf.internal.pageSize.getWidth();
-                            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-                            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-                            pdf.save(opcoes.filename);
-                        } catch (err2) {
-                            console.error('Fallback jsPDF/html2canvas falhou:', err2);
-                            alert('Falha ao carregar bibliotecas necessárias. Veja o console para detalhes.');
-                            return;
-                        }
-
-                        return;
+                        // Tentar alternativa sem versão
+                        await loadScript('https://cdn.jsdelivr.net/npm/html-docx-js/dist/html-docx.js');
                     }
                 }
 
-                await html2pdf().set(opcoes).from(elementoParaPDF).save();
+                if (window.htmlDocx && typeof window.htmlDocx.asBlob === 'function') {
+                    const html = '<!DOCTYPE html><html><head><meta charset="utf-8"/></head><body>' + elementoParaDOCX.innerHTML + '</body></html>';
+                    const blob = window.htmlDocx.asBlob(html);
+
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    URL.revokeObjectURL(url);
+                } else {
+                    throw new Error('html-docx-js não disponível');
+                }
             } catch (err) {
-                console.error('Falha ao gerar PDF:', err);
-                alert('Falha ao gerar PDF. Veja o console do navegador para detalhes.');
+                console.error('Falha ao gerar DOCX:', err);
+                alert('Falha ao gerar DOCX. Veja o console do navegador para detalhes.');
             } finally {
-                elementoParaPDF.style.display = displayOriginal;
+                elementoParaDOCX.style.display = displayOriginal;
                 btnPDF.disabled = false;
             }
         });

@@ -5,16 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img.png" type="image/x-icon">
-    <script async src="dash.js"></script>
-    <title>Diario da Obra</title>
+    <title>Dashboard Financeiro</title>
 </head>
 
-<body class="light-mode-variables">
+<style>
+    #map {
+        width: 100%;
+        height: 500px;
+        border-radius: 12px;
+    }
+</style>
 
+<body class="light-mode-variables">
 
     <div class="container">
 
@@ -37,46 +43,34 @@
 
                 </div>
 
-                <a href="#" class="active">
-
+                <a href="index.html">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
-
                     <h3>Dashboard</h3>
-
                 </a>
 
-                <a href="/map.html" class="">
+                <a href="/map.html" class="active">
                     <span class="material-icons-sharp">
                         map
                     </span>
                     <h3>Mapa</h3>
                 </a>
 
-                <!-- <a href="editar.html">
 
+
+                <a href="index.html" id="logout-btn" style="display: none;">
                     <span class="material-icons-sharp">
-                        edit
-                    </span>
-
-                    <h3>Editar</h3>
-                </a> -->
-
-                <a onclick="logout()" id="logout-btn" style="display: none;">
-
-                    <span class="material-icons-sharp" onclick="logout()">
                         logout
                     </span>
-
                     <h3>Logout</h3>
                 </a>
-
             </div>
 
         </aside>
 
         <main>
+
 
             <div class="header">
 
@@ -90,24 +84,13 @@
 
                 <div class="datas">
 
-                    <div>
-
-                        <label>Meta:</label>
-
-                        <select id="tempo_obra">
-                            <option value="50">50 dias</option>
-                            <option value="90">90 dias</option>
-                            <option value="120">120 dias</option>
-                        </select>
-
-                    </div>
 
                     <div>
 
 
                         <label>Obra: </label>
 
-                        <select id="obra">
+                        <select id="obra_selecionada">
 
                             <option value="Restinga">Cidade Jardim</option>
                             <option value="Jardim_arizona">Jardim Arizona</option>
@@ -116,6 +99,7 @@
                         </select>
 
                     </div>
+
 
                     <div class="dark-mode">
 
@@ -128,83 +112,17 @@
                 </div>
 
 
-            </div>
-
-
-            <div class="analyse">
-
-                <div class="sales">
-
-                    <h3>Inicio Da Obra</h3>
-                    <h1 id="data_inicio">01/01/2026</h1>
-
-                </div>
-
-
-                <div class="sales">
-
-                    <h3>Tempo De Obra</h3>
-
-                    <h1 id="tempo_obra_escolhido">50</h1>
-
-                </div>
-
-                <div class="sales">
-
-                    <h3>Qtd Dias Corridos</h3>
-                    <h1 id="qtd_dias_corridos">0</h1>
-
-                </div>
-
-                <div class="sales">
-
-                    <h3>Qtd Dias Trabalhados</h3>
-                    <h1 id="qtd_dias_trabalhados">0</h1>
-
-                </div>
-
-                <div class="sales">
-
-                    <h3>Previsão Término</h3>
-                    <h1 id="termino">01/02/2026</h1>
-
-                </div>
 
             </div>
 
-            <div class="charts-container" style="display: flex; flex-direction: row; justify-content: flex-start;">
+            <section class="map-section">
 
-                <div style="display: flex; flex-direction: column; gap: 1.75rem;">
-
-                    <div style="width:25vw; height:15vw;" class="chart_card">
-
-                        <h3>Status Da Obra</h3>
-
-                        <div id="gauge" style="width:100%; height:150%;"></div>
-
-                    </div>
-
-                    <div class="chart_card">
-
-                        <div id="tabela_etapas"></div>
-
-                    </div>
+                <div id="map"></div>
 
 
-                </div>
-
-                <div class="chart_card" style="width:55vw;height:auto;">
+            </section>
 
 
-                    <h3>Evolução Da Obra</h3>
-
-                    <div id="line" style="width:100%;height:90%;"></div>
-
-                </div>
-
-
-
-            </div>
 
         </main>
 
@@ -233,6 +151,73 @@
         darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
         darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
     })
+
+
+    // ====================================
+
+    const latitude = -20.5373611;
+    const longitude = -47.4548611;
+
+    const map = L.map('map').setView([latitude, longitude], 5);
+
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Lista de obras com coordenadas
+    const obras = {
+        Restinga: {
+            nome: "Cidade Jardim - Restinga",
+            coords: [-20.5938139, -47.4684872],
+            popup: `
+            <div style="text-align:center;">
+                <h4>Cidade Jardim - Restinga</h4>
+                <img src="./logo.png" style="width:100px; border-radius:50%;">
+            </div>
+        `
+        },
+
+        Jardim_arizona: {
+            nome: "Jardim Arizona",
+            coords: [-20.5349167, -47.45338897],
+            popup: `
+            <div style="text-align:center;">
+                <h4>Jardim Arizona</h4>
+                <img src="./logo.png" style="width:100px; border-radius:50%;">
+            </div>
+        `
+        }
+    };
+
+    let marcadorAtual = null;
+
+    function mostrarObraSelecionada() {
+        const obra = document.getElementById("obra_selecionada").value;
+        const dados = obras[obra];
+
+        if (!dados) return;
+
+        if (marcadorAtual) {
+            map.removeLayer(marcadorAtual);
+        }
+
+        marcadorAtual = L.marker(dados.coords)
+            .addTo(map)
+            .bindPopup(dados.popup)
+            .openPopup();
+
+        map.setView(dados.coords, 12);
+    }
+
+    document.getElementById("obra_selecionada").addEventListener("change", mostrarObraSelecionada);
+
+    // Executa ao carregar
+    mostrarObraSelecionada();
+
+
+
 
 
 </script>

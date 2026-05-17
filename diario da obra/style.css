@@ -44,8 +44,7 @@ html {
 }
 
 body {
-    margin-top: 5vw;
-    height: 80vh;
+    height: 100vh;
     width: 100%;
     font-family: 'Poppins', sans-serif;
     font-size: 0.88rem;

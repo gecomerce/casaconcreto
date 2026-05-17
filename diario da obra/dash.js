@@ -247,7 +247,7 @@ window.addEventListener('load', () => {
                 }
 
                 #tabela_etapas::-webkit-scrollbar-thumb {
-                    background: #0853df;
+                    background: #793CBD;
                     border-radius: 10px;
                 }
             `;
@@ -469,9 +469,9 @@ window.addEventListener('load', () => {
                     type: 'line',
                     smooth: true,
                     symbol: 'none',
-                    lineStyle: { width: 2, color: '#0853df' },
-                    itemStyle: { color: '#0853df' },
-                    areaStyle: { color: '#0853df' },
+                    lineStyle: { width: 2, color: '#793CBD' },
+                    itemStyle: { color: '#793CBD' },
+                    areaStyle: { color: '#793CBD' },
                     data: progressoRealizado
                 },
                 {
@@ -479,8 +479,8 @@ window.addEventListener('load', () => {
                     type: 'line',
                     smooth: true,
                     symbol: 'none',
-                    lineStyle: { width: 2, color: '#0853df' },
-                    itemStyle: { color: '#0853df' },
+                    lineStyle: { width: 2, color: '#793CBD' },
+                    itemStyle: { color: '#793CBD' },
                     areaStyle: { opacity: 0 },
                     data: progressoMeta
                 }

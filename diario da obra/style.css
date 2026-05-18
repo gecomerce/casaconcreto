@@ -236,7 +236,7 @@ main .card_kpi:hover {
 
 .charts-container {
     display: grid;
-    grid-template-columns: 25% 37% auto;
+    grid-template-columns: auto 40% auto;
     gap: 1.75rem;
 }
 

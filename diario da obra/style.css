@@ -46,6 +46,8 @@ html {
 body {
     height: 100vh;
     width: 100%;
+    margin-top: 3vw;
+    zoom: 80%;
     font-family: 'Poppins', sans-serif;
     font-size: 0.88rem;
     /* user-select: none; */

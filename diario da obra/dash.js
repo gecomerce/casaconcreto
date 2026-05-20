@@ -667,10 +667,9 @@ window.addEventListener('load', () => {
                 </h3>
 
                 <img
-                    src="./img/house.png"
+                    src="img/house.png"
                     style="
                         width:3vw;
-                        border-radius:10px;
                     "
                 >
 
@@ -697,10 +696,9 @@ window.addEventListener('load', () => {
                 </h3>
 
                 <img
-                    src="./img/house.png"
+                    src="img/house.png"
                     style="
                         width:3vw;
-                        border-radius:10px;
                     "
                 >
 

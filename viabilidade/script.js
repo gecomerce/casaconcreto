@@ -171,40 +171,32 @@ document.addEventListener('DOMContentLoaded', () => {
         el('resultado_corretagem').textContent =
             `Total Corretagem: ${formatarMoeda(totalCorretagem)}`;
 
-        /* ---------- VALOR FINAL (USANDO PERCENTUAL SOBRE VGV) ---------- */
-        // Percentual selecionado pelo usuário (em %)
-        const selecionado = Number(el('lucro_percent')?.value) || 20;
-
-        // Lucro calculado sobre o VGV
-        const lucroSobreVGV = vgv * (selecionado / 100);
-
-        // Novo valor considerando o lucro sobre o VGV
-        const valorComLucro = vgv + lucroSobreVGV;
+        /* ---------- VALOR FINAL ---------- */
+        const lucroBruto = vgv - totalOperacional;
+        const imposto = lucroBruto > 0 ? lucroBruto * IR : 0;
+        const lucroLiquido = lucroBruto - imposto - totalCorretagem;
+        const percentual = vgv > 0 ? (lucroLiquido / vgv) * 100 : 0;
 
         el('valor_quitacao').textContent =
             `Total Operacional ${formatarMoeda(totalOperacional)}`;
 
-        // Zera ou atualiza campos relacionados ao imposto/cálculo antigo
-        el('imposto_de_renda').textContent = ``;
+        el('imposto_de_renda').textContent =
+            `Imposto de Renda: ${formatarMoeda(imposto)}`;
 
         el('lucro_bruto').textContent =
-            `Lucro (${selecionado}% sobre VGV): ${formatarMoeda(lucroSobreVGV)}`;
+            `Lucro Bruto: ${formatarMoeda(lucroBruto)}`;
 
         el('lucro_liquido').textContent =
-            `Valor com Lucro: ${formatarMoeda(valorComLucro)}`;
+            `Lucro Liquido: ${formatarMoeda(lucroLiquido)}`;
 
         el('percentual_lucro').textContent =
-            `Percentual Selecionado: ${selecionado}%`;
+            `Percentual Lucro: ${percentual.toFixed(2)}%`;
     }
 
     /* ================= EVENTOS ================= */
-    ['qtd_unidades', 'metragem_da_obra', 'vgv'].forEach(id =>
+    ['qtd_unidades', 'metragem_da_obra'].forEach(id =>
         el(id).addEventListener('input', calcularTudo)
     );
-
-    // dropdown de percentual de lucro
-    const lucroSelect = el('lucro_percent');
-    if (lucroSelect) lucroSelect.addEventListener('change', calcularTudo);
 
     calcularTudo();
 });

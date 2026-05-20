@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const IPTU = 0.007;
     const HABITE_SE = 0.04;
     const CORRETOR = 0.10;
-    const PROPAGANDA = 0.01;
+    const PROPAGANDA = 0.02;
     const IR = 0.15;
 
     /* ================= HELPERS ================= */

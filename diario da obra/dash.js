@@ -621,6 +621,15 @@ window.addEventListener('load', () => {
     // MAPA
     // ============================================================
 
+
+    const casaIcon = L.icon({
+        iconUrl: 'img/house.png', // seu ícone
+        iconSize: [40, 40],       // ajuste como quiser
+        iconAnchor: [20, 40],     // base do ícone toca o chão
+        popupAnchor: [0, -40]
+    });
+
+
     const lightTiles = L.tileLayer(
         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         {
@@ -755,6 +764,8 @@ window.addEventListener('load', () => {
         }
 
         marcadorAtual = L.marker(dados.coords)
+        // marcadorAtual = L.marker(dados.coords, { icon: casaIcon })
+
             .addTo(map)
             .bindPopup(dados.popup)
 

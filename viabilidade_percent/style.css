@@ -103,10 +103,10 @@ input[type="number"]::-webkit-outer-spin-button {
 .card {
     page-break-inside: avoid;
 
-    #metragem_da_obra, #custo_por_metro {
+    #metragem_da_obra,
+    #custo_por_metro {
         width: 90%;
         padding: 1vw;
-        font-size: 12pt;
         border: none;
         margin-bottom: 3vw;
         border-radius: 0.5vw;
@@ -144,30 +144,16 @@ screen and (orientation: portrait) {
             font-size: var(--font-size-h3);
             text-align: center;
         }
+
     }
+
+
 
     .card {
         width: 100%;
         gap: 3vw;
         padding: 5vw;
         border-radius: 2vw;
-
-        input {
-
-            width: 90%;
-            padding: 1vw;
-            font-size: 5vw;
-            border: none;
-            border-radius: 1vw;
-
-            #metragem_da_obra {
-                width: 90%;
-                padding: 5vw;
-                font-size: 5vw;
-                border: none;
-                border-radius: 1vw;
-            }
-        }
 
         h3 {
             font-size: 4vw;
@@ -178,7 +164,20 @@ screen and (orientation: portrait) {
             text-align: center;
         }
 
+
+        input {
+
+            width: 90%;
+            padding: 1vw;
+            font-size: 5vw;
+            border: none;
+            border-radius: 1vw;
+
+        }
+
     }
+
+
 
     #vgv_resultado {
         font-size: 7vw !important;

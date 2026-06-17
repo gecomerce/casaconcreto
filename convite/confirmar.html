@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Convite – Lançamento Casa Concreto</title>
+    <title>Confirmação – Casa Concreto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="/convite/logo2.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -39,15 +38,12 @@
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
         .container {
-            max-width: 900px;
             width: 100%;
-            transform: translateY(20px);
+            max-width: 900px;
             animation: slideUp 0.8s ease forwards 0.2s;
             opacity: 0;
         }
@@ -60,40 +56,59 @@
         }
 
         .card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            place-items: center;
-            /* Centraliza horizontal e vertical */
             background: var(--card-bg);
             border-radius: 20px;
-            overflow: hidden;
             border: 1px solid #e6e0f0;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             padding: 40px;
-            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
         }
 
         .logo {
-            width: 300px;
-            margin-bottom: 20px;
+            width: 260px;
+            max-width: 80%;
         }
 
         iframe {
             width: 100%;
             height: 70vh;
             border: none;
+            border-radius: 12px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 24px 18px;
+                gap: 20px;
+            }
+
+            .logo {
+                width: 70%;
+                max-width: 200px;
+            }
+
+            iframe {
+                height: 65vh;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-
         <div class="card">
 
-            <img src="./logo.png" alt="" class="logo">
+            <img src="./logo.png" alt="Logo Casa Concreto" class="logo">
 
-            <iframe src='https://app.pipefy.com/public/form/fywy2Ljd?embedded=true' frameborder='0'></iframe>
+            <iframe src="https://app.pipefy.com/public/form/fywy2Ljd?embedded=true"></iframe>
 
         </div>
     </div>

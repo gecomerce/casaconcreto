@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <title>Convite – Lançamento Casa Concreto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="/convite/logo2.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -39,15 +38,12 @@
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
         .container {
-            max-width: 900px;
             width: 100%;
-            transform: translateY(20px);
+            max-width: 1100px;
             animation: slideUp 0.8s ease forwards 0.2s;
             opacity: 0;
         }
@@ -69,6 +65,7 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
+        /* MOBILE */
         @media (max-width: 768px) {
             .card {
                 grid-template-columns: 1fr;
@@ -82,15 +79,8 @@
         }
 
         @keyframes fadeLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .right {
@@ -104,15 +94,8 @@
         }
 
         @keyframes fadeRight {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .tag {
@@ -126,26 +109,13 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             margin-bottom: 18px;
-
-            /* ANIMAÇÃO */
-            position: relative;
             animation: tagPulse 2.4s ease-in-out infinite;
         }
 
         @keyframes tagPulse {
-            0% {
-                box-shadow: 0 0 0px rgba(114, 77, 159, 0.0);
-                transform: scale(1);
-            }
-
             50% {
                 box-shadow: 0 0 12px rgba(114, 77, 159, 0.35);
                 transform: scale(1.03);
-            }
-
-            100% {
-                box-shadow: 0 0 0px rgba(114, 77, 159, 0.0);
-                transform: scale(1);
             }
         }
 
@@ -153,7 +123,6 @@
             font-size: 32px;
             line-height: 1.2;
             margin-bottom: 12px;
-            color: var(--text-dark);
         }
 
         h1 span {
@@ -169,7 +138,6 @@
 
         .details {
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
             gap: 18px;
             margin-bottom: 30px;
         }
@@ -184,12 +152,10 @@
             text-transform: uppercase;
             letter-spacing: 0.14em;
             color: var(--text-muted);
-            margin-bottom: 4px;
         }
 
         .detail-value {
             font-size: 14px;
-            color: var(--text-dark);
         }
 
         .cta-button {
@@ -200,7 +166,6 @@
             color: var(--white);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
             text-decoration: none;
             transition: 0.25s ease;
             box-shadow: 0 10px 25px rgba(114, 77, 159, 0.3);
@@ -211,22 +176,6 @@
         .cta-button:hover {
             background: #8c63c4;
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(114, 77, 159, 0.4);
-        }
-
-        .cta-button::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.25);
-            transition: 0.4s ease;
-        }
-
-        .cta-button:hover::after {
-            left: 100%;
         }
 
         .cta-note {
@@ -237,22 +186,17 @@
         }
 
         .logo {
-            width: 150px;
+            width: 300px;
             margin-bottom: 20px;
         }
 
-        .project-name {
-            font-size: 22px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-
-        .project-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
+        @media (max-width: 768px) {
+            .logo {
+                width: 70%;
+                max-width: 220px;
+                margin: 0 auto 20px auto;
+                display: block;
+            }
         }
 
         .concept-box {
@@ -262,11 +206,6 @@
             padding: 18px;
             backdrop-filter: blur(6px);
             transition: 0.3s ease;
-        }
-
-        .concept-box:hover {
-            transform: translateY(-4px);
-            border-color: rgba(114, 77, 159, 0.4);
         }
 
         .concept-title {
@@ -279,7 +218,6 @@
 
         .concept-text {
             font-size: 14px;
-            color: var(--text-dark);
             line-height: 1.4;
         }
 
@@ -288,6 +226,29 @@
             font-size: 11px;
             color: var(--text-muted);
             line-height: 1.5;
+            text-align: center;
+        }
+
+        /* MOBILE REFINEMENTS */
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+
+            .left, .right {
+                padding: 28px 22px;
+            }
+
+            h1 { font-size: 24px; }
+
+            .subtitle { font-size: 14px; }
+
+            .cta-button {
+                width: 100%;
+                text-align: center;
+                padding: 14px;
+                font-size: 14px;
+            }
+
+            .concept-text { font-size: 13px; }
         }
     </style>
 </head>
@@ -296,7 +257,6 @@
     <div class="container">
         <div class="card">
 
-            <!-- Lado esquerdo -->
             <div class="left">
                 <div class="tag">Lançamento exclusivo</div>
 
@@ -306,7 +266,7 @@
                 </h1>
 
                 <p class="subtitle">
-                    O Mercado da construção civel está prestes a ser transformado!
+                    O Mercado da construção civil está prestes a ser transformado!
                 </p>
 
                 <div class="details">
@@ -326,36 +286,24 @@
                     </div>
                 </div>
 
-                <a href="./confirmar.html" class="cta-button">
-                    Confirmar presença
-                </a>
-
-                <span class="cta-note">Confirme até: </span>
+                <a href="./confirmar.html" class="cta-button">Confirmar presença</a>
+                <span class="cta-note">Confirme até:</span>
             </div>
 
-            <!-- Lado direito -->
             <div class="right">
-
-
-
                 <div>
                     <img src="logo.png" alt="Logo da empresa" class="logo">
                     <p class="subtitle" style="margin-bottom: 0;">
-
                         Um projeto que traduz a força do concreto em leveza, luz e espaços vivos.
-
                     </p>
-
                 </div>
 
                 <div class="concept-box">
                     <div class="concept-title">Objetivo</div>
                     <div class="concept-text">
-                        Aprensentar uma nova forma de negócio, visando o futuro da construção civil aliado a um novo
-                        horizonte de negócios!
+                        Apresentar uma nova forma de negócio, visando o futuro da construção civil aliado a um novo horizonte de oportunidades!
                     </div>
                 </div>
-
 
                 <div class="footer-note">
                     Evento exclusivo para convidados. Apresente este convite na entrada.

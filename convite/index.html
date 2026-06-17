@@ -38,7 +38,9 @@
         }
 
         @keyframes fadeIn {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
 
         .container {
@@ -65,6 +67,28 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
+        .map-button {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: 0.25s ease;
+        }
+
+        .map-button:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(114, 77, 159, 0.25);
+        }
+
+
         /* MOBILE */
         @media (max-width: 768px) {
             .card {
@@ -79,8 +103,15 @@
         }
 
         @keyframes fadeLeft {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .right {
@@ -94,8 +125,15 @@
         }
 
         @keyframes fadeRight {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .tag {
@@ -231,15 +269,22 @@
 
         /* MOBILE REFINEMENTS */
         @media (max-width: 768px) {
-            body { padding: 12px; }
+            body {
+                padding: 12px;
+            }
 
-            .left, .right {
+            .left,
+            .right {
                 padding: 28px 22px;
             }
 
-            h1 { font-size: 24px; }
+            h1 {
+                font-size: 24px;
+            }
 
-            .subtitle { font-size: 14px; }
+            .subtitle {
+                font-size: 14px;
+            }
 
             .cta-button {
                 width: 100%;
@@ -248,7 +293,9 @@
                 font-size: 14px;
             }
 
-            .concept-text { font-size: 13px; }
+            .concept-text {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -282,8 +329,14 @@
 
                     <div class="detail-item">
                         <div class="detail-label">Local</div>
-                        <div class="detail-value">Definir Local</div>
+                        <div class="detail-value">Ismael Alonso y Alonso, 1219 – Franca/SP</div>
+
+                        <a class="map-button" href="https://maps.app.goo.gl/HLgHL9XLAj1Nf6qu7" target="_blank"
+                            rel="noopener noreferrer">
+                            Abrir no mapa
+                        </a>
                     </div>
+
                 </div>
 
                 <a href="./confirmar.html" class="cta-button">Confirmar presença</a>
@@ -301,7 +354,8 @@
                 <div class="concept-box">
                     <div class="concept-title">Objetivo</div>
                     <div class="concept-text">
-                        Apresentar uma nova forma de negócio, visando o futuro da construção civil aliado a um novo horizonte de oportunidades!
+                        Apresentar uma nova forma de negócio, visando o futuro da construção civil aliado a um novo
+                        horizonte de oportunidades!
                     </div>
                 </div>
 

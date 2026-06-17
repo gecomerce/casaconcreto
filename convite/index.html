@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Convite – Lançamento Casa Concreto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Fonte Sora -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #724D9F;
+            --text-dark: #2a2a2a;
+            --text-muted: #6f6f6f;
+            --bg-light: #f7f5fb;
+            --white: #ffffff;
+            --card-bg: #ffffff;
+            --font-main: "Sora", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease forwards 0.2s;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            border: 1px solid #e6e0f0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .left {
+            padding: 40px;
+            animation: fadeLeft 0.8s ease forwards 0.4s;
+            opacity: 0;
+        }
+
+        @keyframes fadeLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .right {
+            background: linear-gradient(180deg, #f3ecff 0%, #e8def7 100%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation: fadeRight 0.8s ease forwards 0.4s;
+            opacity: 0;
+        }
+
+        @keyframes fadeRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(114, 77, 159, 0.12);
+            border: 1px solid rgba(114, 77, 159, 0.3);
+            color: var(--primary);
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+
+            /* ANIMAÇÃO */
+            position: relative;
+            animation: tagPulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes tagPulse {
+            0% {
+                box-shadow: 0 0 0px rgba(114, 77, 159, 0.0);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 12px rgba(114, 77, 159, 0.35);
+                transform: scale(1.03);
+            }
+
+            100% {
+                box-shadow: 0 0 0px rgba(114, 77, 159, 0.0);
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            max-width: 480px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            border-top: 1px solid #e6e0f0;
+            padding-top: 10px;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 26px;
+            border-radius: 999px;
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            transition: 0.25s ease;
+            box-shadow: 0 10px 25px rgba(114, 77, 159, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background: #8c63c4;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(114, 77, 159, 0.4);
+        }
+
+        .cta-button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.25);
+            transition: 0.4s ease;
+        }
+
+        .cta-button:hover::after {
+            left: 100%;
+        }
+
+        .cta-note {
+            display: block;
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .project-name {
+            font-size: 22px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .concept-box {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(114, 77, 159, 0.2);
+            border-radius: 14px;
+            padding: 18px;
+            backdrop-filter: blur(6px);
+            transition: 0.3s ease;
+        }
+
+        .concept-box:hover {
+            transform: translateY(-4px);
+            border-color: rgba(114, 77, 159, 0.4);
+        }
+
+        .concept-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .concept-text {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+
+            <!-- Lado esquerdo -->
+            <div class="left">
+                <div class="tag">Lançamento exclusivo</div>
+
+                <h1>
+                    Convite para o lançamento<br />
+                    do projeto <span>Casa Concreto</span>
+                </h1>
+
+                <p class="subtitle">
+                    Uma experiência imersiva que celebra arquitetura, design e novas formas de habitar o concreto.
+                </p>
+
+                <div class="details">
+                    <div class="detail-item">
+                        <div class="detail-label">Data</div>
+                        <div class="detail-value">25 de julho de 2026</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Horário</div>
+                        <div class="detail-value">19h30</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Local</div>
+                        <div class="detail-value">Definir Local</div>
+                    </div>
+                </div>
+
+                <a href="./confirmar.html" class="cta-button" target="_blank">
+                    Confirmar presença
+                </a>
+
+                <span class="cta-note">Confirme até 15 de julho.</span>
+            </div>
+
+            <!-- Lado direito -->
+            <div class="right">
+                <div>
+                    <img src="logo.png" alt="Logo da empresa" class="logo">
+
+                    <!-- <div class="project-name">Casa Concreto</div> -->
+
+                    <div class="project-desc">
+                        Um projeto que traduz a força do concreto em leveza, luz e espaços vivos.
+                    </div>
+
+                    <div class="concept-box">
+                        <div class="concept-title">Conceito</div>
+                        <div class="concept-text">
+                            Aprensentar uma nova forma de negócio, o futuro da construção civil aliado a um novo
+                            horizonte de negócios!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-note">
+                    Evento exclusivo para convidados. Apresente este convite na entrada.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

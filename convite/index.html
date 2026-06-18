@@ -64,7 +64,7 @@
             border-radius: 20px;
             overflow: hidden;
             display: grid;
-            grid-template-columns: 3fr 2fr;
+            grid-template-columns: 2fr 2fr;
             border: 1px solid #e6e0f0;
             /* box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); */
         }
@@ -93,6 +93,10 @@
 
         /* MOBILE */
         @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
             .card {
                 grid-template-columns: 1fr;
             }
@@ -230,73 +234,60 @@
             margin-bottom: 20px;
         }
 
+        /* ---------------------------------------------------------- */
+
         @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                max-width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .card {
+                grid-template-columns: 1fr;
+                border-radius: 0;
+            }
+
             .logo {
                 width: 70%;
                 max-width: 220px;
                 margin: 0 auto 20px auto;
                 display: block;
             }
-        }
 
-        .concept-box {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(114, 77, 159, 0.2);
-            border-radius: 14px;
-            padding: 18px;
-            backdrop-filter: blur(6px);
-            transition: 0.3s ease;
-        }
 
-        .concept-title {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .concept-text {
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        .footer-note {
-            margin-top: 20px;
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        /* MOBILE REFINEMENTS */
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
+            .concept-box {
+                background: rgba(255, 255, 255, 0.6);
+                border: 1px solid rgba(114, 77, 159, 0.2);
+                border-radius: 14px;
+                padding: 18px;
+                backdrop-filter: blur(6px);
+                transition: 0.3s ease;
             }
 
-            .left,
-            .right {
-                padding: 28px 22px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            .subtitle {
-                font-size: 14px;
-            }
-
-            .cta-button {
-                width: 100%;
-                text-align: center;
-                padding: 14px;
-                font-size: 14px;
+            .concept-title {
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.16em;
+                color: var(--text-muted);
+                margin-bottom: 10px;
             }
 
             .concept-text {
-                font-size: 13px;
+                font-size: 14px;
+                line-height: 1.4;
+            }
+
+            .footer-note {
+                margin-top: 20px;
+                font-size: 11px;
+                color: var(--text-muted);
+                line-height: 1.5;
+                text-align: center;
             }
         }
     </style>

@@ -254,7 +254,7 @@ window.addEventListener('load', () => {
             const corFundo =
                 i.status === 'REALIZADO'
                     ? '#16eb5d'
-                    : '#ee0303';
+                    : '#793CBD';
 
             html += `
         <tr>
@@ -585,7 +585,7 @@ window.addEventListener('load', () => {
                     barGap: '-100%',
 
                     itemStyle: {
-                        color: '#ee0303'
+                        color: '#793CBD'
                     },
 
                     data: pendente
@@ -598,7 +598,6 @@ window.addEventListener('load', () => {
 
     // VELOCIMETRO=================================================
 
-    // VELOCÍMETRO =================================================
     function graficoVelocimetro() {
 
         const obraNorm = normalizarNome(obra.value);

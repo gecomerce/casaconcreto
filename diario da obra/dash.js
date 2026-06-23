@@ -70,6 +70,7 @@ window.addEventListener('load', () => {
     // OBSERVA DARK MODE
     // ============================================================
 
+
     function atualizarTemaGraficos() {
 
         const cor = getCorRotulo();
@@ -112,9 +113,7 @@ window.addEventListener('load', () => {
         attributes: true
     });
 
-    // ============================================================
-    // CARREGA PLANILHA
-    // ============================================================
+    // CARREGA PLANILHA ============================================================
 
     fetch(url)
         .then(response => response.text())
@@ -135,18 +134,61 @@ window.addEventListener('load', () => {
             movimentacoesBrutas =
                 resultados.data.map(row => ({
 
-                    obra:
-                        (row['obra'] || '').trim(),
+                    obra: (row['obra'] || '').trim(),
 
-                    data:
-                        (row['data'] || '').trim(),
+                    data: (row['data'] || '').trim(),
 
-                    dia:
-                        parseInt(row['dia'] || 0) || 0,
+                    etapa: (row['etapa'] || '').trim(),
 
-                    etapa:
-                        (row['etapa'] || '').trim()
+                    status: (row['status'] || '').trim().toUpperCase()
                 }));
+
+
+            // GERA O DIA DA OBRA AUTOMATICAMENTE
+            const obrasAgrupadas = {};
+
+            movimentacoesBrutas.forEach(item => {
+
+                if (!obrasAgrupadas[item.obra]) {
+                    obrasAgrupadas[item.obra] = [];
+                }
+
+                obrasAgrupadas[item.obra].push(item);
+            });
+
+            Object.values(obrasAgrupadas).forEach(itensObra => {
+
+                itensObra.sort((a, b) =>
+                    parseDateFlexible(a.data) -
+                    parseDateFlexible(b.data)
+                );
+
+                let diaObra = 0;
+                let ultimaData = '';
+
+                itensObra.forEach(item => {
+
+                    if (item.data !== ultimaData) {
+
+                        diaObra++;
+
+                        ultimaData = item.data;
+                    }
+
+                    item.dia = diaObra;
+                });
+
+                console.log(
+                    itensObra[0].obra,
+                    'Máximo dia:',
+                    Math.max(...itensObra.map(i => i.dia))
+                );
+
+                console.log(
+                    [...new Set(itensObra.map(i => i.data))]
+                );
+            });
+
 
             const obrasUnicas = [
                 ...new Set(
@@ -158,27 +200,28 @@ window.addEventListener('load', () => {
 
             obra.innerHTML =
                 obrasUnicas.map(o => `
-                    <option value="${o}">
-                        ${o}
-                    </option>
-                `).join('');
+                <option value="${o}">
+                    ${o}
+                </option>
+            `).join('');
 
             atualizarIndicadores();
 
             graficoVelocimetro();
 
-            graficoLinhaEvolucao();
+            graficoBarraEvolucao();
 
             gerarTabelaEtapas();
 
             mapaObraSelecionada();
+
+            atualizarModelo3D();
         });
 
-    // ============================================================
-    // TABELA
-    // ============================================================
+    // TABELA ============================================================
 
     function gerarTabelaEtapas() {
+
 
         const obraNorm =
             normalizarNome(obra.value);
@@ -197,7 +240,9 @@ window.addEventListener('load', () => {
                 <thead>
                     <tr>
                         <th>Data</th>
+                        <th>Dia</th>
                         <th>Etapa</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
 
@@ -206,12 +251,30 @@ window.addEventListener('load', () => {
 
         itens.forEach(i => {
 
+            const corFundo =
+                i.status === 'REALIZADO'
+                    ? '#16eb5d'
+                    : '#ee0303';
+
             html += `
-                <tr>
-                    <td>${i.data || '-'}</td>
-                    <td>${i.etapa || '-'}</td>
-                </tr>
-            `;
+        <tr>
+            <td>${i.data || '-'}</td>
+            <td>${i.dia || '-'}</td>
+            <td>${i.etapa || '-'}</td>
+
+            <td>
+                <span style="
+                    color:${corFundo};
+                    padding:4px 10px;
+                    border-radius:12px;
+                    font-size:12px;
+                    font-weight:600;
+                ">
+                    ${i.status || '-'}
+                </span>
+            </td>
+        </tr>
+    `;
         });
 
         html += `
@@ -224,41 +287,62 @@ window.addEventListener('load', () => {
 
         tabela.innerHTML = html;
 
-        tabela.style.maxHeight = "14vw";
-        tabela.style.overflowY = "auto";
-        tabela.style.overflowX = "hidden";
+    }
 
-        if (
-            !document.getElementById(
-                "estilo-scroll-tabela-etapas"
-            )
-        ) {
+    // modelo 3D====================================================
 
-            const style =
-                document.createElement("style");
+    function atualizarModelo3D() {
 
-            style.id =
-                "estilo-scroll-tabela-etapas";
+        const obraSelecionada =
+            document.getElementById("obra").value;
 
-            style.innerHTML = `
+        const goioere =
+            document.getElementById("goioere");
 
-                #tabela_etapas::-webkit-scrollbar {
-                    width: 6px;
-                }
+        const maringa =
+            document.getElementById("maringa");
 
-                #tabela_etapas::-webkit-scrollbar-thumb {
-                    background: #793CBD;
-                    border-radius: 10px;
-                }
-            `;
+        goioere.style.display = "none";
+        maringa.style.display = "none";
 
-            document.head.appendChild(style);
+        if (obraSelecionada === "Goioerê") {
+            goioere.style.display = "block";
+        }
+
+        if (obraSelecionada === "Maringá") {
+            maringa.style.display = "block";
         }
     }
 
-    // ============================================================
-    // INDICADORES
-    // ============================================================
+    // INDICADORES=====================================================
+
+    function contarDiasUteis(dataInicio, dataFim) {
+
+        let diasUteis = 0;
+
+        const dataAtual =
+            new Date(dataInicio);
+
+        while (dataAtual <= dataFim) {
+
+            const diaSemana =
+                dataAtual.getDay();
+
+            if (
+                diaSemana !== 0 &&
+                diaSemana !== 6
+            ) {
+                diasUteis++;
+            }
+
+            dataAtual.setDate(
+                dataAtual.getDate() + 1
+            );
+        }
+
+        return diasUteis;
+    }
+
 
     function atualizarIndicadores() {
 
@@ -294,11 +378,9 @@ window.addEventListener('load', () => {
             document.getElementById('tempo_obra_escolhido');
 
         const tempoObra =
-            parseInt(
-                document.getElementById("tempo_obra").value
+            Math.max(
+                ...itens.map(i => Number(i.dia) || 0)
             );
-
-        elTempoEscolhido.innerText = tempoObra;
 
         if (!datas.length) {
 
@@ -313,13 +395,18 @@ window.addEventListener('load', () => {
         const menor =
             new Date(Math.min(...datas));
 
+
         const termino =
-            new Date(menor);
+            new Date(Math.max(...datas));
 
-        termino.setDate(
-            termino.getDate() + tempoObra
-        );
+        const diasUteis =
+            contarDiasUteis(
+                menor,
+                termino
+            );
 
+        elTempoEscolhido.innerText =
+            tempoObra;
         function formatarData(d) {
 
             return `
@@ -335,55 +422,91 @@ window.addEventListener('load', () => {
         elPrev.innerText =
             formatarData(termino);
 
-        const hoje = new Date();
+        const maior =
+            new Date(Math.max(...datas));
 
-        const diffHoje = Math.ceil(
-            (hoje - menor) / 86400000
+        const diffDias = Math.ceil(
+            (maior - menor) / 86400000
         );
 
         elCorridos.innerText =
-            diffHoje > 0
-                ? diffHoje
+            diffDias >= 0
+                ? diffDias
                 : 0;
 
-        const diasTrabalhados =
-            Math.max(
-                ...itens
-                    .map(i => i.dia)
-                    .filter(n => !isNaN(n))
-            );
+        const diasTrabalhados = Math.max(
+            0,
+            ...itens
+                .filter(i =>
+                    i.status &&
+                    i.status.toUpperCase() === 'REALIZADO'
+                )
+                .map(i => Number(i.dia) || 0)
+        );
 
         elTrabalhados.innerText =
-            diasTrabalhados > 0
-                ? diasTrabalhados
-                : 0;
+            diasTrabalhados;
     }
 
-    // ============================================================
-    // GRÁFICO LINHA
-    // ============================================================
+    // GRAFICO LINHA===================================================
 
-    function graficoLinhaEvolucao() {
 
-        const diasTrabalhados = parseInt(document.getElementById("qtd_dias_trabalhados").innerText) || 0;
-        const tempoObra = parseInt(document.getElementById("tempo_obra").value);
+    function graficoBarraEvolucao() {
 
-        const progressoRealizado = [];
-        for (let d = 1; d <= diasTrabalhados; d++) {
-            progressoRealizado.push(d);
-        }
+        const tempoObra =
+            parseInt(
+                document.getElementById(
+                    "tempo_obra_escolhido"
+                ).innerText
+            ) || 0;
 
-        const progressoMeta = [];
+        const obraNorm =
+            normalizarNome(obra.value);
+
+        const itens =
+            movimentacoesBrutas
+                .filter(i =>
+                    normalizarNome(i.obra) === obraNorm
+                )
+                .sort((a, b) => a.dia - b.dia);
+
+        const eixoX =
+            Array.from(
+                { length: tempoObra },
+                (_, i) => i + 1
+            );
+
+        const realizado = [];
+        const pendente = [];
+
         for (let d = 1; d <= tempoObra; d++) {
-            progressoMeta.push(d);
+
+            const etapasDia =
+                itens.filter(i => i.dia === d);
+
+            const possuiRealizado =
+                etapasDia.some(i =>
+                    i.status &&
+                    i.status.toUpperCase() === "REALIZADO"
+                );
+
+            if (possuiRealizado) {
+
+                realizado.push(d);
+                pendente.push(null);
+
+            } else {
+
+                realizado.push(null);
+                pendente.push(d);
+            }
         }
 
-        const maxDias = Math.max(tempoObra, diasTrabalhados);
-        const eixoX = Array.from({ length: maxDias }, (_, i) => i + 1);
-
-        const corRotulo = getCorRotulo();
+        const corRotulo =
+            getCorRotulo();
 
         const optionLine = {
+
             tooltip: {
 
                 trigger: 'axis',
@@ -393,53 +516,50 @@ window.addEventListener('load', () => {
                     const diaAtual =
                         Number(params[0].axisValue);
 
-                    const obraNorm =
-                        normalizarNome(obra.value);
-
-                    const itens =
-                        movimentacoesBrutas
-                            .filter(i =>
-                                normalizarNome(i.obra)
-                                === obraNorm
-                            )
-                            .sort((a, b) => a.dia - b.dia);
-
-                    // pega SOMENTE as etapas do dia atual
                     const etapasDoDia =
                         itens.filter(i =>
                             i.dia === diaAtual
                         );
 
                     if (!etapasDoDia.length) {
+
                         return `
-                <div>
-                    Nenhuma etapa
-                </div>
-            `;
+                        <div>
+                            Nenhuma etapa
+                        </div>
+                    `;
                     }
 
-                    // cria lista com quebra de linha
                     const etapasHTML =
                         etapasDoDia
-                            .map(i => `• ${i.etapa}`)
-                            .join('<br>');
+                            .map(i => {
+
+                                const cor =
+                                    i.status &&
+                                        i.status.toUpperCase() === "REALIZADO"
+                                        ? "#16eb5d"
+                                        : "#ee0303";
+
+                                return `
+                                <span style="color:${cor}">
+                                    ● ${i.etapa}
+                                </span>
+                            `;
+                            })
+                            .join("<br>");
 
                     return `
-            <div style="
-                padding:8px;
-                line-height:1.6;
-            ">
-
-                <strong>
-                    Dia ${diaAtual}
-                </strong>
-
-                <br><br>
-
-                ${etapasHTML}
-
-            </div>
-        `;
+                    <div style="
+                        padding:8px;
+                        line-height:1.6;
+                    ">
+                        <strong>
+                            Dia ${diaAtual}
+                        </strong>
+                        <br><br>
+                        ${etapasHTML}
+                    </div>
+                `;
                 }
             },
 
@@ -454,35 +574,45 @@ window.addEventListener('load', () => {
             xAxis: {
                 type: 'category',
                 data: eixoX,
-                axisLabel: { color: corRotulo }
+                axisLabel: {
+                    color: corRotulo
+                }
             },
 
             yAxis: {
                 show: false,
                 type: 'value',
-                axisLabel: { color: corRotulo }
+                max: tempoObra
             },
 
             series: [
+
                 {
-                    name: 'Dias Trabalhados',
-                    type: 'line',
-                    smooth: true,
-                    symbol: 'none',
-                    lineStyle: { width: 2, color: '#793CBD' },
-                    itemStyle: { color: '#793CBD' },
-                    areaStyle: { color: '#793CBD' },
-                    data: progressoRealizado
+                    name: 'REALIZADO',
+
+                    type: 'bar',
+
+                    barGap: '-100%',
+
+                    itemStyle: {
+                        color: '#16eb5d'
+                    },
+
+                    data: realizado
                 },
+
                 {
-                    name: 'Meta',
-                    type: 'line',
-                    smooth: true,
-                    symbol: 'none',
-                    lineStyle: { width: 2, color: '#793CBD' },
-                    itemStyle: { color: '#793CBD' },
-                    areaStyle: { opacity: 0 },
-                    data: progressoMeta
+                    name: 'PENDENTE',
+
+                    type: 'bar',
+
+                    barGap: '-100%',
+
+                    itemStyle: {
+                        color: '#ee0303'
+                    },
+
+                    data: pendente
                 }
             ]
         };
@@ -490,44 +620,116 @@ window.addEventListener('load', () => {
         myLineChart.setOption(optionLine);
     }
 
-    // ============================================================
-    // VELOCÍMETRO
-
+    // VELOCIMETRO=================================================
 
     function graficoVelocimetro() {
 
-        const DiasCorridos =
-            parseInt(
-                document.getElementById(
-                    "qtd_dias_corridos"
-                ).innerText
-            ) || 0;
+        const obraNorm =
+            normalizarNome(obra.value);
 
-        const tempoObra =
-            parseInt(
-                document.getElementById(
-                    "tempo_obra"
-                ).value
+        const itens =
+            movimentacoesBrutas.filter(i =>
+                normalizarNome(i.obra) === obraNorm
             );
 
-        const porcentagem =
-            Math.min(
-                100,
-                Math.round(
-                    (DiasCorridos / tempoObra) * 100
+        if (!itens.length) return;
+
+        // Converte dd/mm/yyyy para Date
+        const datas = itens
+            .map(i => {
+
+                if (!i.data) return null;
+
+                const partes = i.data.split('/');
+
+                if (partes.length !== 3) return null;
+
+                const dia = parseInt(partes[0]);
+                const mes = parseInt(partes[1]) - 1;
+                const ano = parseInt(partes[2]);
+
+                return new Date(ano, mes, dia);
+
+            })
+            .filter(d =>
+                d instanceof Date &&
+                !isNaN(d.getTime())
+            );
+
+        if (!datas.length) return;
+
+        const dataInicio =
+            new Date(
+                Math.min(
+                    ...datas.map(d => d.getTime())
                 )
             );
 
+        const dataFim =
+            new Date(
+                Math.max(
+                    ...datas.map(d => d.getTime())
+                )
+            );
+
+        const hoje = new Date();
+
+        // Zera as horas para comparação correta
+        hoje.setHours(0, 0, 0, 0);
+
+        const prazoTotal =
+            dataFim.getTime() -
+            dataInicio.getTime();
+
+        const prazoDecorrido =
+            hoje.getTime() -
+            dataInicio.getTime();
+
+        let porcentagemCronograma = 0;
+
+        if (prazoTotal > 0) {
+
+            porcentagemCronograma =
+                Math.round(
+                    (prazoDecorrido / prazoTotal) * 100
+                );
+
+            porcentagemCronograma =
+                Math.max(
+                    0,
+                    Math.min(100, porcentagemCronograma)
+                );
+        }
+
+        // Conta apenas etapas até hoje
+        const etapasAteHoje = itens.filter(i => {
+
+            if (!i.data) return false;
+
+            const dataParsed = parseDateFlexible(i.data);
+
+            return dataParsed && dataParsed <= hoje;
+        });
+
+        const totalAteHoje = etapasAteHoje.length;
+        const etapasRealizadasAteHoje = etapasAteHoje.filter(i =>
+            i.status &&
+            i.status.toUpperCase() === 'REALIZADO'
+        ).length;
+
+        const porcentagemRealizadoAteHoje = totalAteHoje > 0
+            ? Math.round((etapasRealizadasAteHoje / totalAteHoje) * 100)
+            : 0;
+
+        // Determina cor: verde se realizado >= esperado, vermelho se abaixo
         const corRotulo =
             getCorRotulo();
 
-        let corProgresso = '#cc2e06';
+        let corProgresso = '#ee0303'; // vermelho por padrão
 
-        if (porcentagem > 66) {
+        // Se tudo que deveria ter sido feito até hoje está 100% realizado → verde
+        if (porcentagemRealizadoAteHoje === 100) {
             corProgresso = '#00c851';
-        }
-        else if (porcentagem > 33) {
-            corProgresso = '#088af5';
         }
 
         myChart.setOption({
@@ -611,15 +813,16 @@ window.addEventListener('load', () => {
                 },
 
                 data: [{
-                    value: porcentagem
+                    value: porcentagemCronograma
                 }]
             }]
         });
+
     }
+
 
     // ============================================================
     // MAPA
-    // ============================================================
 
 
     const casaIcon = L.icon({
@@ -764,7 +967,7 @@ window.addEventListener('load', () => {
         }
 
         marcadorAtual = L.marker(dados.coords)
-        // marcadorAtual = L.marker(dados.coords, { icon: casaIcon })
+            // marcadorAtual = L.marker(dados.coords, { icon: casaIcon })
 
             .addTo(map)
             .bindPopup(dados.popup)
@@ -779,22 +982,9 @@ window.addEventListener('load', () => {
         );
     }
 
+
     // ============================================================
     // EVENTOS
-    // ============================================================
-
-    document
-        .getElementById("tempo_obra")
-        .addEventListener("change", () => {
-
-            atualizarIndicadores();
-
-            graficoVelocimetro();
-
-            graficoLinhaEvolucao();
-
-            gerarTabelaEtapas();
-        });
 
     document
         .getElementById("obra")
@@ -804,11 +994,13 @@ window.addEventListener('load', () => {
 
             graficoVelocimetro();
 
-            graficoLinhaEvolucao();
+            graficoBarraEvolucao();
 
             gerarTabelaEtapas();
 
             mapaObraSelecionada();
+
+            atualizarModelo3D();
         });
 
 });

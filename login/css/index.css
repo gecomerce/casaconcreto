@@ -59,7 +59,7 @@ body {
 
 
 #menu-icon {
-    font-size: 2.5vw;
+    font-size: 2vw;
     cursor: pointer;
 }
 
@@ -232,10 +232,11 @@ button {
 
 
 iframe {
-    height: 95vh;
+    height: calc(100vh - 25px);
     width: 100vw;
     border: none;
 }
+
 
 
 .desapear {

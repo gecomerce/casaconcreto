@@ -710,7 +710,9 @@ window.addEventListener('load', () => {
                     show: true,
                     length: '60%',
                     width: 6,
-                    itemStyle: { color: corProgresso }
+                    // itemStyle: { color: corProgresso },
+                    itemStyle: { color: '#575757' }
+
                 },
 
                 detail: {

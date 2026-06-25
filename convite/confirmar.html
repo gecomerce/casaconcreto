@@ -81,13 +81,24 @@
             border-radius: 12px;
         }
 
-        /* MOBILE */
+        /* MOBILE----------------------------------- */
+
         @media (max-width: 768px) {
+            
             body {
-                padding: 12px;
+                padding: 0;
+            }
+
+            .container {
+                width: 100vw;
+                box-shadow: none;
+                border-radius: 0;
             }
 
             .card {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
                 padding: 24px 18px;
                 gap: 20px;
             }

@@ -122,13 +122,17 @@
         }
 
         .right {
-            background: linear-gradient(180deg, #f3ecff 0%, #e8def7 100%);
+            background: linear-gradient(180deg, #f3ecff 0%, #e8def7 100%)/;
             padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             animation: fadeRight 0.8s ease forwards 0.4s;
             opacity: 0;
+            background-image: url('casa-final.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         @keyframes fadeRight {
@@ -231,8 +235,13 @@
         }
 
         .logo {
-            width: 300px;
+            width: 200px;
             margin-bottom: 20px;
+        }
+
+        .footer-note {
+            color: var(--card-bg);
+            font-weight: bold;
         }
 
         /* ---------------------------------------------------------- */
@@ -253,41 +262,47 @@
                 border-radius: 0;
             }
 
+            .left {
+                padding: 24px;
+                text-align: center;
+            }
+
+            .right {
+                background-image: url('casa-final.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                min-height: 400px;
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+            }
+
             .logo {
-                width: 70%;
-                max-width: 220px;
-                margin: 0 auto 20px auto;
-                display: block;
-            }
-
-
-            .concept-box {
-                background: rgba(255, 255, 255, 0.6);
-                border: 1px solid rgba(114, 77, 159, 0.2);
-                border-radius: 14px;
-                padding: 18px;
-                backdrop-filter: blur(6px);
-                transition: 0.3s ease;
-            }
-
-            .concept-title {
-                font-size: 12px;
-                text-transform: uppercase;
-                letter-spacing: 0.16em;
-                color: var(--text-muted);
-                margin-bottom: 10px;
-            }
-
-            .concept-text {
-                font-size: 14px;
-                line-height: 1.4;
+                width: 160px;
+                position: absolute;
+                top: 25px;
             }
 
             .footer-note {
-                margin-top: 20px;
-                font-size: 11px;
-                color: var(--text-muted);
-                line-height: 1.5;
+                font-size: 12px;
+                color: #ffffff;
+                text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .cta-button {
+                width: 100%;
                 text-align: center;
             }
         }
@@ -338,25 +353,27 @@
             </div>
 
             <div class="right">
-                <div>
-                    <img src="logo.png" alt="Logo da empresa" class="logo">
-                    <p class="subtitle" style="margin-bottom: 0;">
-                        Um projeto que traduz a força do concreto em leveza, luz e espaços vivos.
-                    </p>
-                </div>
 
-                <div class="concept-box">
+                <img src="logo.png" class="logo">
+
+
+                <!-- <div>
+                    <img src="casa-final.png" alt="">
+                </div> -->
+
+                <!-- <div class="concept-box">
                     <div class="concept-title">Objetivo</div>
                     <div class="concept-text">
                         Apresentar uma nova forma de negócio, visando o futuro da construção civil aliado a um novo
                         horizonte de oportunidades!
                     </div>
-                </div>
+                </div> -->
 
                 <div class="footer-note">
                     Evento exclusivo para convidados. Apresente este convite na entrada.
                 </div>
             </div>
+
 
         </div>
     </div>

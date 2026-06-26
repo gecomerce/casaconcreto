@@ -195,28 +195,11 @@ main .analyse {
     flex-direction: row;
 
     .material-symbols-outlined {
-        color: #f0a400;
+        color: #a89003;
         font-size: 2vw;
     }
 }
 
-/* #inicio {
-    color: #e707eb;
-}
-
-#construcao {
-    color: #ff1010;
-}
-
-#tempo {
-    color: #eb8807;
-
-}
-
-#termino_ {
-    color: #07e777;
-
-} */
 
 
 main .card_kpi:hover {

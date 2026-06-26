@@ -195,12 +195,12 @@ main .analyse {
     flex-direction: row;
 
     .material-symbols-outlined {
-        color: #07ebeb;
+        color: #f0a400;
         font-size: 2vw;
     }
 }
 
-#inicio {
+/* #inicio {
     color: #e707eb;
 }
 
@@ -216,7 +216,7 @@ main .analyse {
 #termino_ {
     color: #07e777;
 
-}
+} */
 
 
 main .card_kpi:hover {

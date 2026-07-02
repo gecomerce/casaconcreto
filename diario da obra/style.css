@@ -170,6 +170,8 @@ main {
     gap: 1.75rem;
 }
 
+/* KPI HEADERS-------------------------------------------------- */
+
 main .analyse {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -189,17 +191,36 @@ main .analyse {
     height: 8vw;
 }
 
+
 .kpi_header {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
 
     .material-symbols-outlined {
-        color: #a89003;
         font-size: 2vw;
     }
-}
 
+    #inicio {
+        color: #f77802;
+    }
+
+    #tempo {
+        color: #087bda;
+    }
+
+    #alarm {
+        color: #02e7f7;
+    }
+
+    #construcao {
+        color: #022ff7;
+    }
+
+    #termino_ {
+        color: #f77802;
+    }
+}
 
 
 main .card_kpi:hover {

@@ -170,7 +170,7 @@ main {
     gap: 1.75rem;
 }
 
-/* KPI HEADERS-------------------------------------------------- */
+/* KPI -------------------------------------------------- */
 
 main .analyse {
     display: grid;
@@ -221,7 +221,6 @@ main .analyse {
         color: #f77802;
     }
 }
-
 
 main .card_kpi:hover {
     box-shadow: 12px 10px 30px var(--color-light);

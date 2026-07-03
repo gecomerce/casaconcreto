@@ -415,6 +415,32 @@ window.addEventListener('load', () => {
             diasTrabalhados;
     }
 
+    function pintarKPIsAtraso(obraAtrasada) {
+
+        const vermelho = "#ee0303";
+
+        const ids = [
+            "data_inicio",
+            "termino",
+            "qtd_dias_corridos",
+            "qtd_dias_trabalhados",
+            "tempo_obra_escolhido"
+        ];
+
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+
+            if (!el) return;
+
+            if (obraAtrasada) {
+                el.style.color = vermelho;
+            } else {
+                el.style.color = ""; // volta ao padrão
+            }
+        });
+    }
+
+
     // GRAFICO LINHA===================================================
 
 
@@ -659,9 +685,13 @@ window.addEventListener('load', () => {
                 ? Math.round((etapasRealizadasAteOntem / totalAteOntem) * 100)
                 : 0;
 
-        // COR DO GRÁFICO ============================================
-        // Verde somente se tudo até ontem estiver 100% concluído
-        let corProgresso = '#ee0303'; // vermelho por padrão
+        const obraAtrasada = porcentagemRealizadoAteOntem < 100;
+
+        // pinta KPIs
+        pintarKPIsAtraso(obraAtrasada);
+
+
+        let corProgresso = '#ee0303';
 
         if (porcentagemRealizadoAteOntem === 100) {
             corProgresso = '#00c851'; // verde

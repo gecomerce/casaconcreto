@@ -178,15 +178,6 @@ window.addEventListener('load', () => {
                     item.dia = diaObra;
                 });
 
-                console.log(
-                    itensObra[0].obra,
-                    'Máximo dia:',
-                    Math.max(...itensObra.map(i => i.dia))
-                );
-
-                console.log(
-                    [...new Set(itensObra.map(i => i.data))]
-                );
             });
 
 
@@ -912,8 +903,6 @@ window.addEventListener('load', () => {
             gerarTabelaEtapas();
 
             mapaObraSelecionada();
-
-            atualizarModelo3D();
         });
 
 });

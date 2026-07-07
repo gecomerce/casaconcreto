@@ -812,14 +812,14 @@ window.addEventListener('load', () => {
                 </h3>
 
                 <img
-                    src="img/house.png"
+                    src="https://i.postimg.cc/7YywHp4Q/Rafaela.png"
                     style="
-                        width:3vw;
+                        width:5vw;
                     "
                 >
 
                 <p>
-                    Cidade Jardim
+                    Responsável: Rafaela
                 </p>
 
             </div>
@@ -841,14 +841,14 @@ window.addEventListener('load', () => {
                 </h3>
 
                 <img
-                    src="img/house.png"
+                    src="https://i.postimg.cc/7YywHp4Q/Rafaela.png"
                     style="
-                        width:3vw;
+                        width:5vw;
                     "
                 >
 
                 <p>
-                    Jardim Arizona
+                    Responsável: Rafaela
                 </p>
 
             </div>

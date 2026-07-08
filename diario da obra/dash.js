@@ -477,22 +477,34 @@ window.addEventListener('load', () => {
             const etapasDia =
                 itens.filter(i => i.dia === d);
 
+            const possuiPendente =
+                etapasDia.some(i =>
+                    i.status &&
+                    i.status.toUpperCase() !== "REALIZADO"
+                );
+
             const possuiRealizado =
                 etapasDia.some(i =>
                     i.status &&
                     i.status.toUpperCase() === "REALIZADO"
                 );
 
-            if (possuiRealizado) {
-
-                realizado.push(d);
+            // PRIORIDADE: se tem pendente → vermelho
+            if (possuiPendente) {
+                realizado.push(null);
+                pendente.push(d); // vermelho
+            }
+            // Se não tem pendente e tem realizado → verde
+            else if (possuiRealizado) {
+                realizado.push(d); // verde
                 pendente.push(null);
-
-            } else {
-
+            }
+            // Se não tem nenhuma etapa → roxo (ou outra cor)
+            else {
                 realizado.push(null);
                 pendente.push(d);
             }
+
         }
 
         const corRotulo =
@@ -602,7 +614,7 @@ window.addEventListener('load', () => {
                     barGap: '-100%',
 
                     itemStyle: {
-                        color: '#793CBD'
+                        color: '#ee0303'
                     },
 
                     data: pendente

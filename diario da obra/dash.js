@@ -659,9 +659,6 @@ window.addEventListener('load', () => {
         const ontem = new Date(hoje);
         ontem.setDate(ontem.getDate() - 1);
 
-        // ================================
-        // Percentual do cronograma
-        // ================================
         const prazoTotal = dataFim.getTime() - dataInicio.getTime();
         const prazoDecorrido = hoje.getTime() - dataInicio.getTime();
 
@@ -672,9 +669,6 @@ window.addEventListener('load', () => {
             porcentagemCronograma = Math.max(0, Math.min(100, porcentagemCronograma));
         }
 
-        // ================================
-        // Etapas que deveriam estar concluídas até ontem
-        // ================================
         const etapasAteOntem = itens.filter(i => {
             const d = parseDateFlexible(i.data);
             return d && d <= ontem;
@@ -692,27 +686,24 @@ window.addEventListener('load', () => {
                 : 0;
 
         // ================================
-        // Atraso detectado?
-        // ================================
         const obraAtrasada = porcentagemRealizadoAteOntem < 100;
 
         // pinta KPIs
         pintarKPIsAtraso(obraAtrasada);
 
-        // ================================
         // Atualiza o status no <h1>
         // ================================
         const statusEl = document.getElementById("status_obra");
 
         if (obraAtrasada) {
-            statusEl.innerText = "Obra atrasada";
-            statusEl.style.color = "#ee0303"; // vermelho
+            statusEl.innerText = "Obra atrasada 🚨";
+            statusEl.style.color = "#ee0303";
         } else {
-            statusEl.innerText = "Obra em dia";
-            statusEl.style.color = "#16eb5d"; // verde
+            statusEl.innerText = "Obra em dia ✅";
+            statusEl.style.color = "#16eb5d"; 
         }
 
-        // ================================
+
         // Cor do gauge
         // ================================
         const corProgresso = obraAtrasada ? "#ee0303" : "#00c851";

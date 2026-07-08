@@ -245,7 +245,7 @@ window.addEventListener('load', () => {
             const corFundo =
                 i.status === 'REALIZADO'
                     ? '#16eb5d'
-                    : '#793CBD';
+                    : '#ee0303';
 
             html += `
         <tr>
@@ -615,6 +615,7 @@ window.addEventListener('load', () => {
 
     // VELOCIMETRO=================================================
 
+
     function graficoVelocimetro() {
 
         const obraNorm = normalizarNome(obra.value);
@@ -625,37 +626,30 @@ window.addEventListener('load', () => {
 
         if (!itens.length) return;
 
-        // Converte dd/mm/yyyy para Date
+        // ================================
+        // Datas da obra
+        // ================================
         const datas = itens
-            .map(i => {
-                if (!i.data) return null;
-
-                const partes = i.data.split('/');
-                if (partes.length !== 3) return null;
-
-                const dia = parseInt(partes[0]);
-                const mes = parseInt(partes[1]) - 1;
-                const ano = parseInt(partes[2]);
-
-                return new Date(ano, mes, dia);
-            })
+            .map(i => parseDateFlexible(i.data))
             .filter(d => d instanceof Date && !isNaN(d.getTime()));
 
         if (!datas.length) return;
 
-        // Determina início e fim do cronograma
-        const dataInicio = new Date(Math.min(...datas.map(d => d.getTime())));
-        const dataFim = new Date(Math.max(...datas.map(d => d.getTime())));
+        const dataInicio = new Date(Math.min(...datas));
+        const dataFim = new Date(Math.max(...datas));
 
-        // Data de hoje zerada
+        // ================================
+        // Datas de referência
+        // ================================
         const hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
 
-        // Data de referência = ontem
-        const referencia = new Date(hoje);
-        referencia.setDate(referencia.getDate() - 1);
+        const ontem = new Date(hoje);
+        ontem.setDate(ontem.getDate() - 1);
 
-        // Percentual do tempo decorrido da obra
+        // ================================
+        // Percentual do cronograma
+        // ================================
         const prazoTotal = dataFim.getTime() - dataInicio.getTime();
         const prazoDecorrido = hoje.getTime() - dataInicio.getTime();
 
@@ -666,40 +660,55 @@ window.addEventListener('load', () => {
             porcentagemCronograma = Math.max(0, Math.min(100, porcentagemCronograma));
         }
 
+        // ================================
         // Etapas que deveriam estar concluídas até ontem
+        // ================================
         const etapasAteOntem = itens.filter(i => {
-            if (!i.data) return false;
-            const dataParsed = parseDateFlexible(i.data);
-            return dataParsed && dataParsed <= referencia;
+            const d = parseDateFlexible(i.data);
+            return d && d <= ontem;
         });
 
         const totalAteOntem = etapasAteOntem.length;
 
-        const etapasRealizadasAteOntem = etapasAteOntem.filter(i =>
-            i.status &&
-            i.status.toUpperCase() === 'REALIZADO'
+        const realizadasAteOntem = etapasAteOntem.filter(i =>
+            i.status && i.status.toUpperCase() === "REALIZADO"
         ).length;
 
         const porcentagemRealizadoAteOntem =
             totalAteOntem > 0
-                ? Math.round((etapasRealizadasAteOntem / totalAteOntem) * 100)
+                ? Math.round((realizadasAteOntem / totalAteOntem) * 100)
                 : 0;
 
+        // ================================
+        // Atraso detectado?
+        // ================================
         const obraAtrasada = porcentagemRealizadoAteOntem < 100;
 
         // pinta KPIs
         pintarKPIsAtraso(obraAtrasada);
 
+        // ================================
+        // Atualiza o status no <h1>
+        // ================================
+        const statusEl = document.getElementById("status_obra");
 
-        let corProgresso = '#ee0303';
-
-        if (porcentagemRealizadoAteOntem === 100) {
-            corProgresso = '#00c851'; // verde
+        if (obraAtrasada) {
+            statusEl.innerText = "Obra atrasada";
+            statusEl.style.color = "#ee0303"; // vermelho
+        } else {
+            statusEl.innerText = "Obra em dia";
+            statusEl.style.color = "#16eb5d"; // verde
         }
 
+        // ================================
+        // Cor do gauge
+        // ================================
+        const corProgresso = obraAtrasada ? "#ee0303" : "#00c851";
         const corRotulo = getCorRotulo();
 
-        // ATUALIZA O GRÁFICO ========================================
+        // ================================
+        // Atualiza o gráfico Gauge
+        // ================================
         myChart.setOption({
             series: [{
                 type: 'gauge',
@@ -732,7 +741,6 @@ window.addEventListener('load', () => {
                     length: '60%',
                     width: 6,
                     itemStyle: { color: '#575757' }
-
                 },
 
                 detail: {
@@ -752,6 +760,7 @@ window.addEventListener('load', () => {
             }]
         });
     }
+
 
 
     // ============================================================

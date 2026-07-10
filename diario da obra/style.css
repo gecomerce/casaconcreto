@@ -223,10 +223,6 @@ main .analyse {
     }
 }
 
-main .card_kpi:hover {
-    box-shadow: 12px 10px 30px var(--color-light);
-}
-
 
 .card_kpi h3 {
     margin-left: 0.6rem;
@@ -261,10 +257,6 @@ main .card_kpi:hover {
     height: 15vw;
     transition: all 0.3s ease;
     ;
-}
-
-.chart_card:hover {
-    box-shadow: var(--box-shadow);
 }
 
 

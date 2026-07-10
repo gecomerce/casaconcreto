@@ -73,7 +73,15 @@ body {
     padding-top: 60px;
     transition: 0.3s;
     overflow-y: scroll;
+    box-shadow: 0rem 0.3rem 0.4rem black;
+
 }
+
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
 
 .sidebar img {
     width: 120px;
@@ -142,7 +150,7 @@ form {
     height: auto;
     box-shadow: 0rem 0.3rem 1rem black;
 
-    button{
+    button {
         background-color: var(--cor-texto);
         width: 90%;
         padding: 1.2vw;

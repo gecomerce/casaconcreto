@@ -206,7 +206,7 @@ window.addEventListener('load', () => {
 
             mapaObraSelecionada();
 
-            atualizarModelo3D();
+            // atualizarModelo3D();
         });
 
     // TABELA ============================================================

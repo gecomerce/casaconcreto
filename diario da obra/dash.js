@@ -824,7 +824,7 @@ window.addEventListener('load', () => {
                 </h3>
 
                 <img
-                    src="https://i.postimg.cc/7YywHp4Q/Rafaela.png"
+                    src="https://i.postimg.cc/SQ2M8Bb3/Rafaela.png"
                     style="
                         width:5vw;
                     "
@@ -853,7 +853,7 @@ window.addEventListener('load', () => {
                 </h3>
 
                 <img
-                    src="https://i.postimg.cc/7YywHp4Q/Rafaela.png"
+                    src="https://i.postimg.cc/SQ2M8Bb3/Rafaela.png"
                     style="
                         width:5vw;
                     "

@@ -807,6 +807,9 @@ window.addEventListener('load', () => {
 
     let marcadorAtual = null;
 
+    // ------------------------------------------------------------------------
+    // criar pin no mapa das obras
+
     const obrasMapa = {
 
         "Cidade Jardim": {

@@ -1,7 +1,5 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* ================= CONSTANTES ================= */
     const ITBI = 0.02;
     const RGI = 0.0075;
     const CERTIDAO = 0.13;
@@ -22,19 +20,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const limparValor = v =>
         Number(String(v).replace(/\D/g, '')) / 100 || 0;
 
-    /* ================= DROPDOWN ================= */
+
     function getCustoMetro() {
         return limparValor(el('custo_por_metro').value);
     }
 
-    /* ================= BASE OBRA ================= */
     function custoObraBase() {
         const unidades = Number(el('qtd_unidades').value) || 0;
         const area = Number(el('metragem_da_obra').value) || 0;
         return unidades * area * getCustoMetro();
     }
 
-    /* ================= INPUTS ================= */
     function aplicarMascaraMoeda(input) {
         if (!input) return;
         input.value = formatarMoeda(0);
@@ -48,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     aplicarMascaraMoeda(el('valor_aquisicao'));
     aplicarMascaraMoeda(el('custo_por_metro'));
 
-    /* ================= CÁLCULO PRINCIPAL ================= */
     function calcularTudo() {
 
         const terreno = limparValor(el('valor_aquisicao').value);
@@ -87,11 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         el('resultado_operacional').textContent = formatarMoeda(totalOperacional);
 
-        // Calcula VGV e assegura lucro líquido mínimo de 20%
         const totalCorretagemRate = CORRETOR + PROPAGANDA;
-        const minProfitRate = 0.20; // 20%
+        const minProfitRate = 0.20;
 
-        // VGV inicialmente estimado
         let vgv = totalOperacional * FATOR_VGV;
         let ajustadoParaMinimo = false;
 
@@ -123,8 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el('lucro_bruto').textContent = `Lucro Bruto: ${formatarMoeda(lucroBruto)}`;
         el('lucro_liquido').textContent = `Lucro Liquido: ${formatarMoeda(lucroLiquido)}`;
         el('percentual_lucro').textContent = `Percentual: ${percentual.toFixed(2)}%` + (ajustadoParaMinimo ? '' : '');
-
-        /* ---------- DETALHE ---------- */
         el('to_terreno').textContent = `Terreno: ${formatarMoeda(terreno)}`;
         el('to_itbi').textContent = `ITBI: ${formatarMoeda(itbi)}`;
         el('to_rgi').textContent = `RGI: ${formatarMoeda(rgi)}`;

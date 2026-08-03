@@ -771,9 +771,9 @@ window.addEventListener('load', () => {
 
 
     const casaIcon = L.icon({
-        iconUrl: 'img/house.png', // seu ícone
-        iconSize: [40, 40],       // ajuste como quiser
-        iconAnchor: [20, 40],     // base do ícone toca o chão
+        iconUrl: 'house.png',
+        iconSize: [40, 40], 
+        iconAnchor: [20, 40],
         popupAnchor: [0, -40]
     });
 
@@ -919,6 +919,7 @@ window.addEventListener('load', () => {
 
             .addTo(map)
             .bindPopup(dados.popup)
+            .openPopup();
 
 
         map.flyTo(

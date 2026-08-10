@@ -772,9 +772,9 @@ window.addEventListener('load', () => {
 
     const casaIcon = L.icon({
         iconUrl: 'house.png',
-        iconSize: [27, 38],
-        iconAnchor: [27, 37],
-        popupAnchor: [-13, -38]
+        iconSize: [27, 40],
+        iconAnchor: [27, 40],
+        popupAnchor: [-14, -40]
     });
 
 
@@ -822,7 +822,7 @@ window.addEventListener('load', () => {
             popup: `
             <div style="text-align:center;">
 
-                <h3>
+                <h3 style="margin-bottom:8px;">
                     Restinga - SP
                 </h3>
 
@@ -851,7 +851,7 @@ window.addEventListener('load', () => {
             popup: `
             <div style="text-align:center;">
 
-                <h3>
+                <h3 style="margin-bottom:8px;">
                     Franca - SP
                 </h3>
 

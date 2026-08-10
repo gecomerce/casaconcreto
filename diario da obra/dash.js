@@ -700,7 +700,7 @@ window.addEventListener('load', () => {
             statusEl.style.color = "#ee0303";
         } else {
             statusEl.innerText = "Obra em dia ✅";
-            statusEl.style.color = "#16eb5d"; 
+            statusEl.style.color = "#16eb5d";
         }
 
 
@@ -772,9 +772,9 @@ window.addEventListener('load', () => {
 
     const casaIcon = L.icon({
         iconUrl: 'house.png',
-        iconSize: [40, 40], 
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -40]
+        iconSize: [27, 38],
+        iconAnchor: [27, 37],
+        popupAnchor: [-13, -38]
     });
 
 
@@ -915,7 +915,7 @@ window.addEventListener('load', () => {
         }
 
         marcadorAtual = L.marker(dados.coords)
-            // marcadorAtual = L.marker(dados.coords, { icon: casaIcon })
+        marcadorAtual = L.marker(dados.coords, { icon: casaIcon })
 
             .addTo(map)
             .bindPopup(dados.popup)

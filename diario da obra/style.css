@@ -236,16 +236,12 @@ main .analyse {
 
 .charts-container {
     display: grid;
-    grid-template-columns: 30% 35% auto;
+    grid-template-columns: 25% 32% auto;
+    grid-template-rows: auto auto;
     gap: 1.75rem;
 }
 
-.first-section,
-.second-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
+
 
 .chart_card {
     height: auto;
@@ -260,7 +256,7 @@ main .analyse {
 
 
 #map {
-
+    display: flex;
     width: 100%;
     height: 100%;
 }

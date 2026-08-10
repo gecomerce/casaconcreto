@@ -919,7 +919,7 @@ window.addEventListener('load', () => {
 
             .addTo(map)
             .bindPopup(dados.popup)
-            .openPopup();
+            // .openPopup();
 
 
         map.flyTo(

@@ -142,30 +142,36 @@
 
             </div>
 
+            <!--QUADRO GRAFICOS--------------------------------------------------------------------------->
 
             <div class="charts-container">
 
-                <div style="display: flex;flex-direction: column; justify-content: space-between">
 
-                    <div class="chart_card">
+                <div class="primeira_coluna">
 
-                        <h3>Prazo Da Obra</h3>
+                    <div style="display: flex; flex-direction: row; gap: 1.75rem; width: 100%;">
 
-                        <div id="gauge" style="width:100%; height:150%; display: flex; justify-content: center;"></div>
+                        <div class="chart_card" style="width:48%;">
+
+                            <h3>Prazo Da Obra</h3>
+
+                            <div id="gauge" style="width:100%; height:150%; display: flex; justify-content: center;"></div>
+
+                        </div>
+
+
+                        <div class="chart_card" style="width:100%;">
+
+                            <div id="tabela_etapas"></div>
+
+                        </div>
+
 
                     </div>
 
-                    <div class="chart_card">
 
-                        <div id="map"></div>
 
-                    </div>
-
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 1.5rem">
-
-                    <div class="chart_card" style="height:15vw; width:100%;">
+                    <div class="chart_card grafico_evolucao">
 
                         <h3>Evolução Da Obra</h3>
 
@@ -173,31 +179,18 @@
 
                     </div>
 
-                    <div class="chart_card">
-
-                        <div id="tabela_etapas"></div>
-
-                    </div>
-
                 </div>
 
 
-                <div style="display: flex;">
+                <div class="chart_card" style="height: 100%; width:100%;">
 
-
-                    <div class="chart_card" style="height: 100%; width:100%;">
-
-                        <iframe title="Casa MV" frameborder="0" allowfullscreen mozallowfullscreen="false"
-                            webkitallowfullscreen="false" allow="autoplay; fullscreen; xr-spatial-tracking"
-                            xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
-                            src="https://sketchfab.com/3d-models/casa-neoclassica-8ecdb8c8cd4d41b79af598e6fffa0b74/embed"
-                            style="height: 100%; width: 100%;"> </iframe>
-
-                    </div>
-
+                    <iframe title="Casa MV" frameborder="0" allowfullscreen mozallowfullscreen="false"
+                        webkitallowfullscreen="false" allow="autoplay; fullscreen; xr-spatial-tracking"
+                        xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
+                        src="https://sketchfab.com/3d-models/casa-neoclassica-8ecdb8c8cd4d41b79af598e6fffa0b74/embed"
+                        style="height: 100%; width: 100%;"> </iframe>
 
                 </div>
-
 
 
             </div>

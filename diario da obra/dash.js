@@ -100,8 +100,6 @@ window.addEventListener('load', () => {
                 }
             }
         });
-
-        atualizarTemaMapa();
         graficoVelocimetro();
     }
 
@@ -203,8 +201,6 @@ window.addEventListener('load', () => {
             graficoBarraEvolucao();
 
             gerarTabelaEtapas();
-
-            mapaObraSelecionada();
 
             // atualizarModelo3D();
         });
@@ -763,174 +759,6 @@ window.addEventListener('load', () => {
             }]
         });
     }
-
-
-
-    // ============================================================
-    // MAPA
-
-
-    const casaIcon = L.icon({
-        iconUrl: 'house.png',
-        iconSize: [27, 40],
-        iconAnchor: [27, 40],
-        popupAnchor: [-14, -40]
-    });
-
-
-    const lightTiles = L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-            maxZoom: 19,
-            attribution:
-                '&copy; OpenStreetMap contributors'
-        }
-    );
-
-    const darkTiles = L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-        {
-            maxZoom: 19,
-            attribution:
-                '&copy; OpenStreetMap contributors &copy; CARTO'
-        }
-    );
-
-    const map = L.map('map', {
-
-        center: [-20.5373611, -47.4548611],
-
-        zoom: 2,
-
-        layers: [lightTiles]
-    });
-
-    let marcadorAtual = null;
-
-    // ------------------------------------------------------------------------
-    // criar pin no mapa das obras
-
-    const obrasMapa = {
-
-        "Cidade Jardim": {
-
-            coords: [
-                -20.5938139,
-                -47.4684872
-            ],
-
-            popup: `
-            <div style="text-align:center;">
-
-                <h3 style="margin-bottom:8px;">
-                    Restinga - SP
-                </h3>
-
-                <img
-                    src="https://i.postimg.cc/SQ2M8Bb3/Rafaela.png"
-                    style="
-                        width:5vw;
-                    "
-                >
-
-                <p>
-                    Responsável: Rafaela
-                </p>
-
-            </div>
-        `
-        },
-
-        "Jardim Arizona": {
-
-            coords: [
-                -20.5349167,
-                -47.4533889
-            ],
-
-            popup: `
-            <div style="text-align:center;">
-
-                <h3 style="margin-bottom:8px;">
-                    Franca - SP
-                </h3>
-
-                <img
-                    src="https://i.postimg.cc/SQ2M8Bb3/Rafaela.png"
-                    style="
-                        width:5vw;
-                    "
-                >
-
-                <p>
-                    Responsável: Rafaela
-                </p>
-
-            </div>
-        `
-        }
-    };
-
-    function atualizarTemaMapa() {
-
-        const darkMode =
-            document.body.classList.contains(
-                'dark-mode-variables'
-            );
-
-        if (darkMode) {
-
-            if (map.hasLayer(lightTiles)) {
-                map.removeLayer(lightTiles);
-            }
-
-            if (!map.hasLayer(darkTiles)) {
-                map.addLayer(darkTiles);
-            }
-
-        } else {
-
-            if (map.hasLayer(darkTiles)) {
-                map.removeLayer(darkTiles);
-            }
-
-            if (!map.hasLayer(lightTiles)) {
-                map.addLayer(lightTiles);
-            }
-        }
-    }
-
-    function mapaObraSelecionada() {
-
-        const obraSelecionada =
-            document.getElementById("obra").value;
-
-        const dados =
-            obrasMapa[obraSelecionada];
-
-        if (!dados) return;
-
-        if (marcadorAtual) {
-            map.removeLayer(marcadorAtual);
-        }
-
-        marcadorAtual = L.marker(dados.coords)
-        marcadorAtual = L.marker(dados.coords, { icon: casaIcon })
-
-            .addTo(map)
-            .bindPopup(dados.popup)
-            // .openPopup();
-
-
-        map.flyTo(
-            dados.coords,
-            15,
-            {
-                duration: 1.5
-            }
-        );
-    }
-
 
     // ============================================================
     // EVENTOS

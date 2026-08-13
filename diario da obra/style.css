@@ -231,7 +231,7 @@ main .analyse {
 
 .charts-container {
     display: grid;
-    grid-template-columns: 59.7% auto;
+    grid-template-columns: 59.54% auto;
     gap: 1.75rem;
 }
 

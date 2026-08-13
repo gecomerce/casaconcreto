@@ -154,6 +154,9 @@ b {
     grid-template-columns: 12rem auto;
 }
 
+#status_obra {
+    color: var(--primary-color);
+}
 
 main {
     width: 97vw;

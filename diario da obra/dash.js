@@ -689,15 +689,7 @@ window.addEventListener('load', () => {
 
         // Atualiza o status no <h1>
         // ================================
-        const statusEl = document.getElementById("status_obra");
-
-        if (obraAtrasada) {
-            statusEl.innerText = "Obra atrasada 🚨";
-            statusEl.style.color = "#ee0303";
-        } else {
-            statusEl.innerText = "Obra em dia ✅";
-            statusEl.style.color = "#16eb5d";
-        }
+        const statusEl = document.getElementById("status_obra").innerHTML = obra.value;
 
 
         // Cor do gauge
@@ -775,7 +767,6 @@ window.addEventListener('load', () => {
 
             gerarTabelaEtapas();
 
-            mapaObraSelecionada();
         });
 
 });

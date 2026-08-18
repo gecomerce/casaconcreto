@@ -113,7 +113,7 @@ body {
     top: 10px;
     right: 15px;
     font-size: 2vw;
-    color: var(--cor-texto);
+    color: red;
     cursor: pointer;
 }
 

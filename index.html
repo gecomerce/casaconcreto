@@ -1,213 +1,86 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="shortcut icon" href="/assets/images/logo2.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
-    <title>Casa Concreto</title>
-
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            height: 100vh;
-            overflow: hidden;
-            background: #000;
-            font-family: "Sora", sans-serif;
-        }
-
-        /* CONTAINER DO VÍDEO */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .bg-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(55%);
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.15);
-            z-index: 5;
-        }
-
-        /* LOGO FIXA */
-        .logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 50px;
-            z-index: 30;
-        }
-
-        /* ÁREA CENTRAL */
-        .sequence {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            z-index: 20;
-        }
-
-        /* ELEMENTOS ANIMADOS */
-        .text1,
-        .text2,
-        .final-img {
-            opacity: 0;
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .text1 {
-            width: 100vw;
-            font-size: 4rem;
-            font-weight: 300;
-            animation: show1 9s infinite;
-        }
-
-        .text2 {
-            width: 100vw;
-            font-size: 3rem;
-            font-weight: 300;
-            animation: show2 9s infinite;
-        }
-
-        .final-img {
-            width: 40vw;
-            height: auto;
-            animation: show3 9s infinite;
-            z-index: 50;
-        }
-
-        /* TIMELINE DAS ANIMAÇÕES */
-        @keyframes show1 {
-            0% {
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            30% {
-                opacity: 1;
-            }
-
-            40% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @keyframes show2 {
-            0% {
-                opacity: 0;
-            }
-
-            33% {
-                opacity: 0;
-            }
-
-            43% {
-                opacity: 1;
-            }
-
-            63% {
-                opacity: 1;
-            }
-
-            73% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @keyframes show3 {
-            0% {
-                opacity: 0;
-            }
-
-            66% {
-                opacity: 0;
-            }
-
-            76% {
-                opacity: 1;
-            }
-
-            96% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* RESPONSIVO */
-        @media (max-width: 900px) {
-            .text1 {
-                font-size: 2.5rem;
-            }
-
-            .text2 {
-                font-size: 1.8rem;
-            }
-
-            .final-img {
-                width: 60vw;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="./img/logo2.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <title>login</title>
 </head>
 
 <body>
 
-    <div class="video-container">
+    <div id="loading">
 
-        <div class="sequence">
-            <div class="text1">Em breve</div>
-            <div class="text2">Existe um jeito melhor</div>
-            <img src="/assets/images/logo_branco.png" class="final-img">
-        </div>
-
-        <video autoplay muted loop class="bg-video">
-            <source src="timelapse.mp4">
-        </video>
-
-        <div class="overlay"></div>
-
-        <img src="assets/images/logo.png" class="logo">
+        <div class="spinner" id="spinner"></div>
 
     </div>
+
+    <div id="container-login" class="container">
+
+
+        <form id="loginForm" class="form">
+
+            <img class="logo" src="./img/logo2.png" alt="">
+
+            <div class="campos">
+
+                <label for="username">Usuário</label>
+
+                <input id="input-user" type="text">
+
+                <label for="password">Senha</label>
+
+                <input id="password" type="password">
+
+            </div>
+            <button type="submit">Entrar</button>
+
+            <p id="alert" class="message"></p>
+
+        </form>
+
+    </div>
+
+    <div class="screen-logged">
+
+        <div>
+
+
+            <div class="sidebar" id="sidebar">
+
+                <img class="logo" src="./img/logo2.png" id="user-image">
+
+
+                <span class="close-btn" onclick="toggleMenu()">&times;</span>
+
+
+            </div>
+
+            <div class="msg">
+
+
+                <span class="material-symbols-outlined" id="menu-icon" style="color: #793CBD;">
+                    menu
+                </span>
+
+
+                <h2 id="logged-message"></h2>
+
+                <button class="exit-btn" onclick="Exit()">Sair</button>
+
+
+            </div>
+
+            <iframe id="iframe" src=""></iframe>
+
+        </div>
+
+    </div>
+
+    <script src="./js/script.js"></script>
 
 </body>
 
